@@ -8,7 +8,7 @@ public class HelloWorld {
 	 */
 	// 프로그램을 실행하기 위해서 main이 필요하다.
 	public static void main(String[] args) {
-		// System.out.println : 콘솔에 원하는 문구를 출력하는 기능
+		// System.out.println : 콘솔에 원하는 문구를 출력하는 기능.
 		System.out.println("Hello World!");
 	}
 
