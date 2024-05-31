@@ -1,6 +1,6 @@
 package day03;
 
-public class NestedIfEX {
+public class NestedIfEX01 {
 
 	public static void main(String[] args) {
 		/* 6의 배수를 중첩 if문을 이용하여 작성하는 예제 */
