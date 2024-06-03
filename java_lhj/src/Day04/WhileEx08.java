@@ -28,7 +28,8 @@ public class WhileEx08 {
 		// 반복 종료 후, 출력하는 것으로 바꾸면 최대 공약수가 나올 것이다. ( 저장하고 다시 저장하면서, 이전의 것은 지워지기 때문. )
 		
 		while(i <= num1) {
-			if((num1 % i == 0) && (num2 % i == 0)) { gcd = i;
+			if((num1 % i == 0) && (num2 % i == 0)) { 
+				gcd = i;
 				
 			}
 			i++;
