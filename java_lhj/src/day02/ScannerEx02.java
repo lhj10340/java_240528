@@ -31,7 +31,7 @@ public class ScannerEx02 {
 		
 		System.out.print('\n');
 		
-		System.out.print("입력 결과 : " + "" + num1 + " " + chr + " " + num2);
+		System.out.print("입력 결과 : " + " " + num1 + " " + chr + " " + num2);
 	}
 
 }
