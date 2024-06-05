@@ -18,7 +18,7 @@ public class IfExam003 {
 		
 		double res;
 		
-		if(chr=='+')  { res = num1 + num2;System.out.println("" + num1 + " " + chr + " " + num2 + " = " + (int)res);
+		if(chr=='+')  { res = num1 + num2; System.out.println("" + num1 + " " + chr + " " + num2 + " = " + (int)res);
 		}
 		else if(chr=='-')  { res = num1 - num2; System.out.println("" + num1 + " " + chr + " " + num2 + " = " + (int)res);
 		}
