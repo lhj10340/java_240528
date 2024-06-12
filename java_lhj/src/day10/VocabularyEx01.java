@@ -45,23 +45,71 @@ public class VocabularyEx01 {
 				break;
 				// 2. 단어 수정
 			case 2:
-				
+				updateWord(list, wordCount);
 				break;
 				// 3. 단어 검색
 			case 3:
-				System.out.println("단어를 검색합니다.");
-				// 입력 기능 추가.
+				System.out.println("단어 :");
+				word = scan.next();
+				int count = 0;
 				// 저장한 단어가 있는지 없는지 확인.
-				// 없다면 종료.
+				for ( int i = 0; i < wordCount ; i++ ) {
+					if(list[i].getWord().equals(word)) {
+						System.out.print((i + 1) + ". ");
+						list[i].print();
+						count++;
+					}
 				// 있다면 단어, 뜻, 품사가 출력되도록 해야한다.
+				}
+				// 없다면 종료.
+				if(count == 0) {
+					System.out.println("단어가 없습니다.");
+					return;
+				}
 				break;
 				// 4. 단어 삭제
 			case 4:
-				System.out.println("단어를 삭제합니다.");
-				// 입력 기능 추가.
+				
+				System.out.println("단어 :");
+				word = scan.next();
+				count = 0;
 				// 저장한 단어가 있는지 없는지 확인.
+				for ( int i = 0; i < wordCount ; i++ ) {
+					if(list[i].getWord().equals(word)) {
+						System.out.print((i + 1) + ". ");
+						list[i].print();
+						count++;
+					}
+				// 있다면 단어, 뜻, 품사가 출력되도록 해야한다.
+				}
+				
+				// 안내문구 출력. ( 삭제할 단어 선택 + 강사님 주석 : 잘 선택했다면? 잘못 선택했다면? )
+				System.out.print("삭제할 단어의 번호를 입력하세요. : ");
+				int num = scan.nextInt();
+				int i = 0;
+				
+				list[i] = list[i+1];
+				
+				list[wordCount-1] = null;
+				
+				if(num != (i+1)) {
+					System.out.print("잘못된 선택입니다, 다시 입력하세요.");
+				}
+				// 내 주석 : 선택하면 해당 번지를 비어있는 상태로 만듦. // 강사님 주석 : 앞으로 당겨서 가져오고 마지막 부분을 null 로 만듦
+				
+				// 비어있는 번지를 기준으로 뒤에 있는 번지들을 한칸씩 앞으로 이동. ( 비어있는 번지를 그냥 두면 효율적인 배열의 사용이 불가 )
+				
 				// 없다면 종료.
-				// 있다면 단어가 저장되어있는 번지를 확인하여, 해당 번지를 비어있는 상태로 만들어야 한다.
+				
+				if(count == 0) {
+					System.out.println("삭제할 단어가 없습니다.");
+					return;
+				}
+				
+				// 있다면 단어가 저장되어있는 번지를 확인하여 ( 번호를 달기 위해 i+1 로 해두었으니, 해당 번지는 i 이다 )
+				
+				// 해당 번지를 비어있는 상태로 만들고 앞으로 당겨야 한다.
+				
 				break;
 				// 5. 종료
 			case 5:
@@ -72,6 +120,29 @@ public class VocabularyEx01 {
 				System.out.println("잘못된 메뉴 선택입니다.");
 			}
 		} while (menu != 5);
+	}
+	
+	/** 기능 : 단어 리스트에 단어가 있으면 해당 단어를 출력하고 없으면 없다고 출력하는 메소드
+	 * @param list 단어리스트
+	 * @param word	단어
+	 * @param wordCount 저장된 단어의 수
+	 * */
+
+	public static void printSearchWord(Word [] list, int wordCount, String word) {
+		int count = 0; // 일치하는 단어가 몇 개 있는지 확인하는 변수
+		// 단어 리스트에 수정할 단어 일치하는 단어들을 번호와 함께 출력한다. ( 동일한 단어일 가능성이 있기 때문에 )
+		for(int i = 0; i < wordCount; i++) {
+			if(list[i].getWord().equals(word)) {
+				System.out.print(i+1+".");
+				list[i].print();
+				count++;
+			}
+		}
+		// 단어가 없으면 안내문구 출력 후 종료
+		if(count == 0) {
+			System.out.println("단어가 없습니다.");
+			return;
+		}
 	}
 
 	/** 기능 : list 에 index 번지에 있는 단어가 word 인지 아닌지 알려주는 메소드
