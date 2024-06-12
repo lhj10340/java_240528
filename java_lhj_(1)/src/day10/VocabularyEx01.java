@@ -51,43 +51,7 @@ public class VocabularyEx01 {
 				break;
 				// 4. 단어 삭제
 			case 4:
-				
-				// 삭제할 단어를 입력.
-				System.out.print("단어 : ");
-				word = scan.next();
-				// 삭제할 단어를 출력.
-				printSearchWord(list, wordCount, word);
-				// 삭제할 단어를 선택.
-				int num = scan.nextInt();
-			
-				// 여기까지는 2번, 3번의 일부와 동일하다.
-				
-				// 잘못된 선택이면 안내문구 출력
-				if(!checkWord(list, word, num-1)) {
-					System.out.println("잘못된 번호를 선택했습니다.");
-					break;
-				}
-				
-				// 올바른 선택이면 삭제.
-				
-				// 삭제하려는 번지 다음에 있는 단어들 부터 앞으로 한칸씩 당기고, 마지막 단어를 null로 만듦.
-				
-				// 저장된 단어 수를 1만큼 감소 시킴.
-				Word [] tmp = new Word[list.length];
-				// 단어 리스트의 복사본
-				System.arraycopy(list, 0, tmp, 0, wordCount);
-				
-				// 삭제할 위치부터 하나씩 당겨오게 하기위해 복사
-				// 삭제한 단어가 마지막 단어가 아닐 때,
-				if(wordCount - num != 0) {
-				System.arraycopy(tmp, num, list, num-1, wordCount - num);
-				}
-				wordCount--;
-				tmp[wordCount] = null;
-				System.out.println("삭제가 완료되었습니다.");
-				for(int i = 0; i < wordCount; i++) {
-					list[i].print();
-				}
+				wordCount = deleteWord(list,wordCount);
 				break;
 				// 5. 종료
 			case 5:
@@ -98,6 +62,55 @@ public class VocabularyEx01 {
 				System.out.println("잘못된 메뉴 선택입니다.");
 			}
 		} while (menu != 5);
+	}
+	
+	public static int deleteWord(Word[] list, int wordCount) {
+		// 삭제할 단어를 입력.
+		System.out.print("단어 : ");
+		String word = scan.next();
+		// 삭제할 단어를 출력.
+		printSearchWord(list, wordCount, word);
+		// 삭제할 단어를 선택.
+		int num = scan.nextInt();
+	
+		// 여기까지는 2번, 3번의 일부와 동일하다.
+		
+		// 잘못된 선택이면 안내문구 출력
+		if(!checkWord(list, word, num-1)) {
+			System.out.println("잘못된 번호를 선택했습니다.");
+			return wordCount;
+		}
+		
+		// 올바른 선택이면 삭제.
+		
+		// 삭제하려는 번지 다음에 있는 단어들 부터 앞으로 한칸씩 당기고, 마지막 단어를 null로 만듦.
+		
+		wordCount = deleteWordList(list, wordCount, num - 1);
+		System.out.println("삭제가 완료되었습니다.");
+		for(int i = 0; i < wordCount; i++) {
+			list[i].print();
+		}
+		return wordCount;
+	}
+
+	/** 기능 : 배열의 index 번지에 요소를 삭제하는 메소드
+	 * @param list 단어 리스트
+	 * @param wordCount 단어 수
+	 * @param index 삭제할 위치
+	 * @return 삭제된 후, 단어 수
+	 * */
+	
+	public static int deleteWordList(Word [] list, int wordCount, int index) {
+		Word [] tmp = new Word[list.length];
+		// 단어 리스트의 복사본
+		System.arraycopy(list, 0, tmp, 0, wordCount);
+		
+		if(wordCount - index != 0) {
+			System.arraycopy(tmp, index, list, index-1, wordCount - index);
+			}
+			wordCount--;
+			list [wordCount] = null;
+		return wordCount;
 	}
 	
 	/** 기능 : 단어를 입력받아 단어 리스트에 해당 단어가 있는지 출력하는 메소드
