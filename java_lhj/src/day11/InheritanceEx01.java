@@ -6,12 +6,10 @@ public class InheritanceEx01 {
 		// 상속 예제
 		HighSchoolStudent std = new HighSchoolStudent();
 		std.print();
+		std.setAge(10);
+		std.print();
 	}
 	
-}
-
-class Student1 {
-	// 학교명, 이름, 나이, 생일
 }
 
 class HighSchoolStudent extends Student{
