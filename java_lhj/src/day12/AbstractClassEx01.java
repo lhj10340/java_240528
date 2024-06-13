@@ -39,7 +39,7 @@ abstract class Animal {
 		System.out.println(food + "먹이를 먹습니다.");
 	}
 	
-	//bark() 메소드는 Animal 클래스를 상속받는 모든 클래스들이 bark 를 오버라이딩으 해야하기 때문에
+	// bark() 메소드는 Animal 클래스를 상속받는 모든 클래스들이 bark 를 오버라이딩을 해야하기 때문에
 	// 굳이 구현하지 않아도 된다. 그래서 추상 메소드로 만듦 => Animal 클래스는 추상메소드가 있기 때문에
 	// 추상 클래스로 바꿔야 한다.
 	
