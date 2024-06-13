@@ -8,11 +8,11 @@ public class StringEx01 {
 
 		String str = "Hello world";
 		
+		// char charAt(index) : 문자열의 index 번지 문자를 반환
 		System.out.println(str + "의 3번째 문자 : " + str.charAt(2));
 		
-		String str2 = "Hello world";
-		
 		// boolean equals (Object obj) : 문자열이 같은지 반환
+		String str2 = "Hello world";
 		System.out.println(str + " 과 " + str2 + " 는 같나요? " + str.equals(str2));
 		
 		// int indexOf(문자열) : 문자열의 시작 번지를 반환, 없으면 -1
