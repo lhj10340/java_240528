@@ -62,6 +62,7 @@ public class LogicalOperatorEx01 {
 		 * => !(나이가 19보다 크거나 같다)
 		 * => !(age >= 19)
 		 * */
+		
 		int age = 20;
 		boolean isMinor = !(age >= 19);
 		System.out.println("미성년자입니까? " + isMinor);
