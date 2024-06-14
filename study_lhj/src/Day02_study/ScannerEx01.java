@@ -27,6 +27,15 @@ public class ScannerEx01 {
 		String str = scan.next(); // 콘솔에서 공백(엔터, 스페이스 등) 전까지 문자열을 가져온다.
 		System.out.println("단어 : " + str);
 		
+		scan.nextLine(); // 공백 삭제용으로 적는 것.
+		System.out.print("문자열(단어)를 입력하세요 : ");
+		String str1 = scan.nextLine(); //
+		System.out.println("단어 : " + str1);
+		
+		System.out.println("문자를 입력하세요 : ");
+		char chr = scan.next().charAt(0);
+		System.out.println(chr);
+		
 	}
 
 }
