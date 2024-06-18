@@ -73,6 +73,9 @@ public class Ex05 {
 	}
 
 	private static int getStrike(List<Integer> com, List<Integer> user) {
+		
+		// 예외 처리를 하는 습관을 들여놓는 것이 좋다.
+		
 		if(com.size() != user.size()) {
 			throw new RuntimeException("크기가 달라 판별할 수 없습니다.");
 		}
