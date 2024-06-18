@@ -49,6 +49,11 @@ public class Ex05 {
 			
 			ArrayList<Integer> user1 = new ArrayList<Integer>();
 			
+			int s = 0;
+			int b = 0;
+			
+			
+			
 	}
 
 }
