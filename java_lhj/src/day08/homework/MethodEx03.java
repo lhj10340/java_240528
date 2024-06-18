@@ -97,7 +97,6 @@ public class MethodEx03 {
 			}
 		}
 		return arr;
-		// 여기 입력 어떻게 하셨는지 확인 필요.
 	}
 
 }
