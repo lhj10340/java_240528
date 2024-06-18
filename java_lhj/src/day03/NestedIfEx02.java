@@ -5,42 +5,66 @@ import java.util.Scanner;
 public class NestedIfEx02 {
 
 	public static void main(String[] args) {
+		/* IfExam03 클래스를 생성하세요.
+		 * 산술 연산자와 두 정수를 입력받아 산술연산자에 맞는 연산 결과를 출력하는 코드를 작성하세요.
+		 * 예:
+		 * 두 정수와 산술 연산자를 입력하세요(예 : 1 + 2 ) : 1 + 2 [엔터]
+		 * 1 + 2 = 3
+		 */
+		
+		//Scanner를 이용하여 두 정수와 산술 연산자를 입력
+		//산술 연산자를 문자로 입력
+		Scanner scan = new Scanner(System.in);
+		System.out.print("두 정수와 산술 연산자를 입력하세요(예 : 1 + 2 ) : ");
+		int num1 = scan.nextInt();
+		char operator = scan.next().charAt(0);
+		int num2 = scan.nextInt();
+		
+		
+		/* 연산자가 + 이면 두 정수의 합을 출력하고
+		 * 아니면 연산자가 -이면 두 정수의 차를 출력하고
+		 * 아니면 연산자가 *이면 두 정수의 곱을 출력하고
+		 * 아니면 연산자가 /이면 두 정수의 나눈 결과를 출력하고
+		 * 아니면 연산자가 %이면 두 정수의 나머지 결과를 출력하고
+		 * 아니면 잘못된 연산자입니다라고 출력
+		 * */
+		double result;
+		if(operator == '+') {
+			result = num1 + num2;
+			System.out.println("" + num1 + operator + num2 + "="+(int)result);
+		}
+		else if(operator == '-') {
+			result = num1 - num2;
+			System.out.println("" + num1 + operator + num2 + "="+(int)result);
+		}
+		else if(operator == '*') {
+			result = num1 * num2;
+			System.out.println("" + num1 + operator + num2 + "="+(int)result);
+		}
+		//num2가 0이면 0으로 나눌수 없습니다고 출력
+		else if(operator == '/') {
+			if(num2 != 0) {
+				result = (double)num1 / num2;
+				System.out.println("" + num1 + operator + num2 + "="+result);
+			}
+			else {
+				System.out.println("0으로 나눌 수 없습니다.");
+			}
+		}
+		//num2가 0이면 0으로 나눌수 없습니다고 출력
+		else if(operator == '%') {
+			if(num2 != 0) {
+				result = num1 % num2;
+				System.out.println("" + num1 + operator + num2 + "="+(int)result);
+			}
+			else {
+				System.out.println("0으로 나눌 수 없습니다.");
+			}
+		}
+		else {
+			System.out.println(operator + "는 산술 연산자가 아닙니다.");
+		}
 
-			Scanner scan = new Scanner(System.in);
-			
-			// 연산자 별로 else if문을 작성했어야 하는데, 보여주신 예시만 나오게 했었다.
-			// 연산자 별로 변수 설정 후, else if문 작성.
-			// <주의> char 의 경우는 '' 사이에 넣어야한다. 아까 "" 사이에 넣어서 에러가 났었다.
-			
-			int num1, num2;
-			char chr;
-			
-			System.out.print("두 정수와 산술 연산자를 입력하세요 (예 : 1 + 2) : ");
-			
-			num1 = scan.nextInt();
-			chr = scan.next().charAt(0); // 기억이 나지 않았음, 이전에 했던 것에서 복사해왔다.
-			num2 = scan.nextInt();
-			
-			int res1 = num1 + num2, res2 = num1 - num2, res3 = num1 * num2, res4 = num1 / num2, res5 = num1 % num2;
-			
-			// double result; 를 넣고, 실행문에 result = 각 연산자별 계산 넣어서 해도 된다.
-			// 나누기에서 형 변환을 주의할 것.
-			// 기본적인 문법의 형태를 미리 적어두고 시작하는 것이 좋다. 괄호 실수를 줄일 수 있을 것이다.
-			
-			if(chr=='+') { System.out.println(num1 + " " + chr + " " + num2 + " = " + res1);
-			}
-			else if(chr=='-') { System.out.println(num1 + " " + chr + " " + num2 + " = " + res2);
-			}
-			else if(chr=='*') { System.out.println(num1 + " " + chr + " " + num2 + " = " + res3);
-			}
-			else if(chr=='/') { System.out.println(num1 + " " + chr + " " + num2 + " = " + res4);
-			}
-			else if(chr=='%') { System.out.println(num1 + " " + chr + " " + num2 + " = " + res5);
-			}
-			else { System.out.println("잘못된 연산자입니다.");
-			
-	}
-	}
-	
 	}
 
+}
