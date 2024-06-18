@@ -8,13 +8,13 @@ public class NestedIfEX01 {
 		
 		if(num%6==0) {System.out.println("6의 배수입니다.");
 		}
-		else {System.out.println("6의 배수입니다.");
+		else {System.out.println("6의 배수가 아닙니다.");
 		}
 
 		if(num%2==0 && num%3==0) {System.out.println("6의 배수입니다.");
 				
 		}
-		else {System.out.println("6의 배수입니다.");
+		else {System.out.println("6의 배수가 아닙니다.");
 		}
 		
 		// 중첩 if문 - 잘 안됐다, 있다가 해보자.
