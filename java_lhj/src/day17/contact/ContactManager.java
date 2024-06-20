@@ -43,7 +43,7 @@ public class ContactManager implements Program {
 		String fileName = "src/day17/contact/contact.txt";
 		
 		load(fileName);
-		//list = new ArrayList<Contact>();
+		//list = new ArrayList<Contact>(); // 
 		//프로그램 실행
 		int menu = INSERT;
 		do {
