@@ -254,15 +254,13 @@ public class HomeworkManager implements Program {
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println((i+1) + ". " + tmp.get(i));
 		}
+
+		// 고민 더 해보는 걸로 .. ( 잘 모르겠다 )
 		
 		System.out.println("-------------------------");
 		System.out.println("메뉴로 가시려면 엔터를 입력하세요.");
 		System.out.println("-------------------------");
 		
-		String str = scan.next();
-		if(str == "\\n") {
-			printMenu();
-		}
 		
 	}
 
