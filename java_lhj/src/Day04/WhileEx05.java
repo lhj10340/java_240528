@@ -5,7 +5,7 @@ public class WhileEx05 {
 	public static void main(String[] args) {
 		/* 1부터 10까지 짝수의 합을 구하는 코드를 작성하세요.
 		 * 
-		 * 반복횟수 : i는 1부터 5까지 1씩 증가.
+		 * 반복횟수 : i는 1부터 10까지 1씩 증가.
 		 * 규칙성 : 
 		 * 반복문 종료 후 : 1 ~ 10 까지 짝수의 합.
 		 * 
