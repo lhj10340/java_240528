@@ -18,7 +18,8 @@ public class ForEx07 {
 		int num = 4;
 		int i = 1, count = 0;
 
-		for ( ; i <= num ; i++ ) { if ( num % i == 0 ) { count++; } }
+		for ( ; i <= num ; i++ ) {
+			if ( num % i == 0 ) { count++; } }
 
 		if ( count == 2 ) { System.out.println(num + " 은 소수입니다."); }
 		else { System.out.println(num + " 은 소수가 아닙니다.");
