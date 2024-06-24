@@ -255,12 +255,17 @@ public class HomeworkManager implements Program {
 			System.out.println((i+1) + ". " + tmp.get(i));
 		}
 
-		// 고민 더 해보는 걸로 .. ( 잘 모르겠다 )
+		// 고민 더 해보는 걸로 .. ( 잘 모르겠다 ) 
+		// 공백을 처리하기 위해서는 nextLine 이 필요하다. 다만, 위에 next 를 이용하여 처리한 것이 있어서 공백 처리를 위해 한번 더 적어야 한다.
+		// 그래서 아래에 2번 적었다.
+		
+		scan.nextLine();
 		
 		System.out.println("-------------------------");
 		System.out.println("메뉴로 가시려면 엔터를 입력하세요.");
 		System.out.println("-------------------------");
 		
+		scan.nextLine();
 		
 	}
 
@@ -365,11 +370,11 @@ public class HomeworkManager implements Program {
 
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String newYmd = format1.format(date);
-		System.out.print(newYmd);
+		System.out.println(newYmd);
 
 		scan.nextLine();
 		
-		System.out.print("일정 입력 : ");
+		System.out.println("일정 입력 : ");
 		String newSchedule = scan.nextLine();
 		System.out.print("상세 입력 : ");
 		String newDetail = scan.next();
