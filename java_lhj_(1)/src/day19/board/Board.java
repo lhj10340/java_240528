@@ -1,14 +1,19 @@
 package day19.board;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import lombok.Data;
 
 @Data
 
-public class Board {
+public class Board implements Serializable {
 
 	// 제목, 내용, 작성자, 비밀번호
+	
+	// 같은 클래스라도 시리얼 번호가 다르면 불러와지지 않는다.
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String title;
 	private String detail;
@@ -23,7 +28,16 @@ public class Board {
 	// 게시글 번호를 생성할 때, 활용.
 	
 	private static int count = 0; 
-
+	
+	// static 을 가져올 수 없어서, getter 와 setter 를 생성.
+	
+	public static int getCount() {
+		return count;
+	}
+	public static void setCount(int count1) {
+		count = count1;
+	}
+	
 	// 이 생성자를 이용할 때만 게시글 번호를 1 증가하도록 한다.
 	
 	public Board(String title, String detail, String id, String pw) {

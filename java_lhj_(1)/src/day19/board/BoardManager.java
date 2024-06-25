@@ -1,5 +1,9 @@
 package day19.board;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -55,12 +59,25 @@ public class BoardManager implements Program {
 
 	@Override
 	public void save(String fileName) {
-
+		try(FileOutputStream fos = new FileOutputStream(fileName);
+				ObjectOutputStream oos = new ObjectOutputStream(fos)){
+				oos.write(Board.getCount());
+				oos.writeObject(list);
+			} catch (Exception e) {
+				System.out.println("저장에 실패했습니다.");
+			}
 	}
 
 	@Override
 	public void load(String fileName) {
-
+		try(FileInputStream fis = new FileInputStream(fileName);
+				ObjectInputStream ois = new ObjectInputStream(fis)){
+			int count = ois.read();
+			Board.setCount(count);
+				list = (List<Board>)ois.readObject();
+			} catch (Exception e) {
+				System.out.println("불러오기에 실패했습니다.");
+			} 
 	}
 
 	@Override
@@ -94,45 +111,98 @@ public class BoardManager implements Program {
 	private void search() {
 		
 		// 검색어 입력
-		
+		System.out.println("검색어(전체는 엔터) : ");
+		scan.nextLine(); // 공백처리
+		String search = scan.nextLine();
+		System.out.println("-----------------");
 		// 게시글에서 검색어가 제목 또는 내용에 들어간 게시글 리스트를 가져온다.
+		List<Board> searchList = getSearchList(search);
 		
 		// 게시글 리스트가 비어있으면 안내문구 출력 후 종료.
-		
+		if(searchList.size() == 0) {
+			System.out.println("검색어와 일치하는 게시글이 없습니다.");
+		}
 		// 가져온 게시글 리스트를 출력한다.
-		
+		printList(searchList);
 		// 게시글을 확인할 것인지 선택.
-
+		System.out.println("게시글을 확인하시겠습니까? (y/n) : ");
+		char ok = scan.next().charAt(0);
 		// 확인하지 않겠다고 하면 종료.
-		
+		if(ok != 'y') {
+			return;
+		}
 		// 확인하면 게시글 번호를 입력 받는다.
-		
+		System.out.println("검색 결과 중 확인할 게시글 번호 : ");
+		int num = scan.nextInt();
 		// 입력받은 게시글 번호로 객체를 생성
-		
+		Board board = new Board(num);
 		// 검색 리스트에서 생성된 객체와 일치하는 번지를 확인
-		
+		int index = searchList.indexOf(board);
 		// 번지가 유효하지 않으면 안내문구 출력 후 종료
-		
+		if(!searchList.contains(board)) {
+			System.out.println("검색 결과에는 없는 게시글 입니다.");
+			return;
+		}
 		// 번지에 있는 게시글을 가져온다.
-		
+		board = searchList.get(index);
 		// 가져온 게시글을 출력
-		
+		board.print();
 		// 메뉴로 돌아가려면 ... 문구 출력
-		
+		System.out.println("메뉴로 돌아가려면 엔터를 입력하세요.");
 		// 엔터를 입력받도록 처리
+		scan.nextLine();
+		scan.nextLine();
+	}
+
+	private void printList(List<Board> searchList) {
+		for(Board board : searchList) {
+			System.out.println(board);
+		}
+	}
+
+	private List<Board> getSearchList(String search) {
+		
+		// (1) 반복문을 이용하는 방법.
+		
+		List<Board> searchList = new ArrayList<Board>();
+		// 전체 게시글에서 하나씩 꺼내서 검색
+		for ( Board board : list ) {
+			// 게시글의 제목 또는 내용에 검색어가 포함되어 있으면 검색 리스트에 추가.
+			if( board.getTitle().contains(search) ||
+					board.getDetail().contains(search)) {
+				searchList.add(board);
+			}
+		}
+		return searchList;
+		
+		// (2) 스트림을 이용하여 검색어와 일치하는 게시글 리스트를 가져오는 방법.
 		
 	}
 
 	private void delete() {
 		
 		// 삭제할 게시글 번호를 입력
-		
+		System.out.println("삭제할 게시글 번호 : ");
+		int num = scan.nextInt();
+		System.out.println("------------------");
 		// 게시글 번호에 맞는 게시글을 가져온다.
-		
+		Board board = selectBoard(num);
 		// 게시글이 없으면 종료
-		
+		if(board == null) {
+			return;
+		}
 		// 리스트에서 게시글을 삭제
+		list.remove(board);
+		System.out.println(board.getNum() + "번 게시글이 삭제되었습니다.");
 		
+		// 위 내용과 동일한 기능을 한다.
+		
+		// 지울 것이 없으면 remove 는 false 가 나온다. if 의 조건식이 false 가 나오면 아무것도 실행이
+		// 되지 않는다.
+		
+		/* if(list.remove(board)) {
+			System.out.println(board.getNum() + "번 게시글이 삭제되었습니다.");
+		} */
 	}
 
 	private void update() {
