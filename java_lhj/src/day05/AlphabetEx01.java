@@ -1,6 +1,6 @@
 package day05;
 
-public class AlphanetEx01 {
+public class AlphabetEx01 {
 
 	public static void main(String[] args) {
 		/* a
