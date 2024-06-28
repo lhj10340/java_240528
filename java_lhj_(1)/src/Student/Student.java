@@ -1,5 +1,6 @@
 package Student;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,9 +9,11 @@ import lombok.Data;
 
 @Data
 
-public class Student {
+public class Student implements Serializable {
 	
-	 // 학년, 반, 번호, 이름
+	private static final long serialVersionUID = 9050595352674224784L;
+	
+	// 학년, 반, 번호, 이름
 		
 	private int grade, classNum, num;
 	private String name;
@@ -53,6 +56,13 @@ public class Student {
 		for(Subject tmp : subjectList) {
 			System.out.println(tmp);
 		}
+	}
+
+	public void update(Student std) {
+		this.grade = std.grade;
+		this.classNum = std.classNum;
+		this.num = std.num;
+		this.name = std.name;
 	}
 
 	// 같은 학교에 특정 년도에 같은 학년, 반, 번호를 가진 학생은 1명이기 때문에
