@@ -21,7 +21,6 @@ public class BoardManager implements Program {
 	private final int DELETE = 3;
 	private final int SEARCH = 4;
 	private final int EXIT = 5;
-
 	private String fileName = "src/day19/board/data.txt";
 
 	public static void main(String[] args) {
