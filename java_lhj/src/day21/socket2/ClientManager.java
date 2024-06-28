@@ -165,9 +165,7 @@ public class ClientManager implements Program {
 		// 이름이 없다면, 등록된 연락처가 없습니다. 출력.
 		
 		// 이름이 있다면, 앞에 번호와 함께 출력.
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(i+1 + ". " + tmps.get(i) );
-		}
+		
 		// 엔터를 누르면 돌아가도록 할 것.
 		
 	}
