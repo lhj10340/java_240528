@@ -17,6 +17,7 @@ public class ArrayEx04 {
 		}
 		
 		// 역순으로 출력.
+		
 		for(int i = 0; i < arr.length; i++) {
 			// i=0 => 2번지
 			// i=1 => 1번지
