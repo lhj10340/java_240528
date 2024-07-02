@@ -1,5 +1,7 @@
 package Day02_study;
 
+import java.util.Scanner;
+
 public class CastingEx01 {
 
 	public static void main(String[] args) {
@@ -26,10 +28,11 @@ public class CastingEx01 {
 		
 		double res = 1/2; // 1/2 의 결과인 0이 자동 자료형 변환을 통해 0.0 으로 변환.
 		System.out.println(res);
+		System.out.println("프로그램을 종료합니다.");
 		
 		res = 1 / (double)2; // 2를 명시적 자료형 변환으로 변환하여 1/2.0 을 계산해서 0.5 를 저장.
 		System.out.println(res);
 		
 	}
-
 }
+
