@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>속성선택 연습예제</title>
+</head>
+<body>
+	<button onclick="/*decrease()*/decrease2()">-</button>
+	<input type="text" value="0" readonly>
+	<button onclick="/*increase()*/increase2()">+</button>
+	<script>
+
+		//숫자가 감소하는 함수
+		function decrease(){
+			// 태그가 input인 요소를 선택
+			var de1 = document.getElementsByTagName("input")[0];
+			// 선택한 요소의 value 값을 가져온다
+			var de0 = de1.value;
+			// 가져온 값을 감소
+			var de0 = de1.value--;
+			// 선택한 요소의 value를 감소한 값으로 변경
+			
+			/*
+
+			<< 강사님 풀이 >>
+
+			var input = document.getElementsByTagName("input")[0];
+			var num = input.value; // input 태그에서 가져온 value는 항상 문자열
+			num = +num;
+			--num;
+			input.value = num;
+
+			*/
+			
+		}
+
+		//숫자가 증가하는 함수
+		function increase(){
+			// 태그가 input인 요소를 선택
+			var in1 = document.getElementsByTagName("input")[0];
+			// 선택한 요소의 value 값을 가져온다
+			var in0 = in1.value;
+			// 가져온 값을 증가
+			var in0 = in1.value++;
+			// 선택한 요소의 value를 증가한 값으로 변경
+		}
+
+			/*
+
+			<< 강사님 풀이 >>
+
+			var input = document.getElementsByTagName("input")[0];
+			var num = input.value; // input 태그에서 가져온 value는 항상 문자열
+			num = +num;
+			++num;
+			input.value = num;
+			
+			*/
+
+			function increas2(amount){
+				var input = document.getElementsByTagName("input")[0];
+				var num = input.value;
+
+				num = +num;
+				num = num + amount;
+
+				input.value = num;
+			}
+	</script>
+</body>
+</html>

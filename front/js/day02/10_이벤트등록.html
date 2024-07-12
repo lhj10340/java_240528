@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이벤트 등록</title>
+</head>
+<body>
+	
+	<button onclick="alert('이벤트 등록1')">이벤트 등록1</button> <br>
+	<button id="btn1">이벤트 등록2</button> <br>
+	<button id="btn2">이벤트 등록3</button> <br>
+	<input type="text" onchange="alertText(this);">
+
+
+	<script>
+		
+		// 이벤트 등록 방법1
+		// 	- 태그의 속성으로 이벤트를 등록
+		// 	- on이벤트명="실행할 코드"
+		
+	
+		// <!--
+		// 이벤트 등록 방법2
+		// 	- 요소.on이벤트명 = 함수;
+		// 이벤트 등록 방법3
+		// 	- 요소.addEventListener('이벤트명', 함수, 캡쳐링)
+		// 	- 캡처링이 true이면 캡처링, false이면 버블링
+		// 	- 캡처링 기본값은 false
+		// 	- 캡처링은 이벤트 발생 시, 발생한 이벤트가 자식 요소들에게도 전달이 되는 것.
+		// 	- 버블링은 이벤트 발생 시, 발생한 이벤트가 부모 요소들에게도 전달
+		
+			/*
+				아이디가 지정된 태그들은 아이디명을 통해 요소를 바로 선택할 수 있다. 다만, 추천하진 않는다.
+			*/
+
+			btn1.onclick = function(){
+				alert('이벤트 등록2-1');
+			}
+
+			btn1.onclick = ()=>{
+				alert('이벤트 등록 2-2')
+			}
+
+			var btn2 = document.getElementById('btn2')
+			btn2.addEventListener('click', function(){
+				alert('이벤트 등록3');
+			});
+
+			/*
+				입력과 관련된 태그들에서 중요한 이벤트들
+					- change
+						- 입력하는 동안에는 이벤트가 발생하지 않는다.
+						- 엔터를 치거나 다른 곳을 클릭해서 비활성화가 되면
+							이전 값과 다른 경우에만 발생한다.
+					- input
+						- 입력이 되면 발생한다.
+						- 복사 붙여넣기를 포함한다.
+					- keyup
+						- 키보드를 눌렀다 땠을 때
+					- keydown
+						- 키보드를 누를 때(누르는 중에도 발생)
+						- 모든 키를 인식
+					- keypress
+						- 키보드를 누를 때 (누르는 중에도 발생)
+						- 한글을 인식하지 못한다.
+						- alt, ctrl 등과 같은 특수키에서 발생하지 않는다.
+						- 최신 표준에는 권장되지 않는다.
+					- click
+						- 클릭했을 때
+			*/
+
+			function alertText(obj){
+				console.log(obj);
+				let text = obj.value;
+				alert(text);
+			}
+
+	</script>
+		
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>to do list</title>
+
+</head>
+<body>
+	
+	<h1>오늘의 할 일 등록</h1>
+		<input type="text" id="input">
+		<button id="btn">등록</button>
+	<hr>
+	<h1>오늘의 할 일</h1>
+	<ol id="list">
+
+	</ol>
+	<script>
+		// 등록 버튼을 선택
+		const btn = document.getElementById('btn')
+		// input창 선택
+		const input = document.getElementById('input')
+		// ol 태그 선택
+		const list = document.getElementById('list')
+		// 등록 버튼 클릭 이벤트를 추가
+		btn.addEventListener( 'click' , ()=>{
+			// input 창에 입력한 값을 가져온다. ( 어떠한 속성으로 가져올지 고민 / input은 쌍태그가 아니다. )
+			var toDo = input.value
+			// 가져온 값을 li 태그로 감싸서 문자열로 만든다.
+			var str = `<li> ${toDo} </li>`
+			// ul 태그 안에 li 태그를 이어 붙인다.
+			list.innerHTML += str;
+			// input 창의 값을 비워준다.
+			input.value = ''
+
+		});
+	</script>
+</body>
+</html>
