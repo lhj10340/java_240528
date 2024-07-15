@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>복습</title>
+	<style>
+		#box{ height: 500px; border: 1px solid black;}
+		.bg-yellow{ background-color: yellow; }
+	</style>
+</head>
+<body>
+	<button id="btn">선택</button>
+	<hr>
+	<div id="box"></div>
+	<script>
+
+		// 버튼 요소 선택
+		const btn = document.getElementById('btn')
+		// 박스 요소 선택
+		const box = document.getElementById('box')
+
+		// 버튼을 클릭했을 때, 이벤트를 등록
+		btn.addEventListener('click', ()=>{
+			// 박스의 테두리 색상을 빨간색으로 변경.
+			box.style.borderColor = 'red';
+			// 박스의 배경이 흰색이면 노란색으로, 노란색이면 흰색으로 변경
+			
+			box.classList.toggle('bg-yellow');
+
+			// if(box.style.color = 'white'){
+			// 	box.style.color = 'yellow';
+			// } else{
+			// 	box.style.color = 'white'
+			// }
+
+		});
+
+	</script>
+</body>
+</html>
