@@ -4,7 +4,7 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		shopManager sm = new shopManager();
+		ShopManager sm = new ShopManager();
 		sm.run();
 		
 	}
