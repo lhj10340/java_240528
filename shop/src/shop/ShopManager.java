@@ -24,20 +24,26 @@ public class ShopManager implements program {
 		System.out.println("3. 일부 비우기 ");
 		System.out.println("4. 전체 비우기");
 		System.out.println("5. 이전으로");
-		System.out.println("메뉴 선택 : ");
+		System.out.print("메뉴 선택 : ");
 	}
 
 	@Override
 	public void run() {
 
-		int menu;
+		int menu = 1;
 
 		do {
 
 			printMenu();
 
 			menu = scan.nextInt();
-
+			
+			try {
+				runMenu(menu);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		} while(menu != 5);
 
 	}
@@ -80,7 +86,7 @@ public class ShopManager implements program {
 		String cusId = scan.next();
 		System.out.print("상품명 : ");
 		String itemName = scan.next();
-		System.out.println("가격 : ");
+		System.out.print("가격 : ");
 		int itemPrice = scan.nextInt();
 
 		// 연락처를 이용한 객체 생성 ( 중복여부 확인과 연락처 추가를 위해 필요하다. )
@@ -105,14 +111,15 @@ public class ShopManager implements program {
 		String search = scan.next();
 		// 2. 입력한 아이디에 저장된 리스트를 가격 (각각의 가격) 과 함께 출력
 		int i = 0, count = 0;
+		int sum = 0;
 		for ( Shop shop : list ) {
 			++i;;
 			if(shop.getCusId().contains(search)) {
 				count++;
 				System.out.println(i + ". " + shop);
+				sum += shop.getItemPrice();
 			}
 		}
-
 		//검색 결과가 없으면
 
 		if(count == 0) {
@@ -121,14 +128,18 @@ public class ShopManager implements program {
 		}
 
 		// 3. 2번과 함께 총액을 출력 후, 구매의사를 물어보는 안내문구 출력
-
+		
+		System.out.print("총액 : " + sum + "원");
+		
+		System.out.println();
+		
 		printBar();
 
 		// 4. 구매의사
 		System.out.println(" 상품을 구매하시겠습니까? (y/n) : ");
 		String str = scan.next();
 		// 4-1 예. 입력 시, ' 구매가 완료되었습니다. ' 출력
-		if(str == "y")
+		if(str.equals("y"))
 		{ System.out.println("구매가 완료되었습니다.");
 		return;
 		// 4-2 아니오. 입력 시, ' 메뉴로 돌아갑니다. ' 출력 후, 메뉴로 ...
@@ -153,14 +164,22 @@ public class ShopManager implements program {
 
 		// 2. 입력한 아이디에 저장된 리스트를 가격 (각각의 가격) 과 함께 출력
 		int i = 0, count = 0;
-		for (Shop shop : list) {
+		int sum = 0;
+		for ( Shop shop : list ) {
 			++i;;
 			if(shop.getCusId().contains(search)) {
 				count++;
-				System.out.println(i + ". " + shop );
+				System.out.println(i + ". " + shop);
+				sum += shop.getItemPrice();
 			}
 		}
-
+		
+		System.out.print("총액 : " + sum + "원");
+		
+		System.out.println();
+		
+		printBar();
+		
 		//검색 결과가 없으면
 		if(count == 0) {
 			System.out.println("검색 결과가 없습니다.");
@@ -180,7 +199,6 @@ public class ShopManager implements program {
 		}
 		System.out.println("상품을 삭제하지 못했습니다.");
 
-
 	}
 
 	private void empty() {
@@ -196,14 +214,22 @@ public class ShopManager implements program {
 
 		// 2. 입력한 아이디에 저장된 리스트를 가격 (각각의 가격) 과 함께 출력
 		int i = 0, count = 0;
-		for ( Shop shop : list) {
+		int sum = 0;
+		for ( Shop shop : list ) {
 			++i;;
 			if(shop.getCusId().contains(search)) {
 				count++;
-				System.out.println(i + ". " + shop );
+				System.out.println(i + ". " + shop);
+				sum += shop.getItemPrice();
 			}
 		}
-
+		
+		System.out.print("총액 : " + sum + "원");
+		
+		System.out.println();
+		
+		printBar();
+		
 		//검색 결과가 없으면
 		if(count == 0) {
 			System.out.println("검색 결과가 없습니다.");
@@ -215,7 +241,7 @@ public class ShopManager implements program {
 		String str = scan.next();
 
 		// 3-1 'y' 입력 시, ' 비우기가 완료되었습니다. ' 를 출력하며, 해당 아이디에 포함된 리스트를 전체 삭제.
-		if(str == "y")
+		if(str.equals("y"))
 		{ System.out.println("비우기가 완료되었습니다.");
 		list.clear();
 		// 3-2 'n' 입력 시, ' 메뉴로 돌아갑니다. ' 출력 후, 메뉴로 ...

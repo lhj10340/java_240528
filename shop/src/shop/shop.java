@@ -16,11 +16,11 @@ public class Shop {
 	
 	private String cusId;
 	private String itemName;
-	private int itemPrice; // DecimaFormat 사용
+	private int itemPrice;
 	
 	@Override
 	public String toString() {
-		return "구매자 아이디: cusId / 상품명 : itemName / 가격 : itemPrice 원";
+		return "구매자 아이디: " + cusId + " / 상품명 : " + itemName + " / 가격 : " + itemPrice + "원";
 	}
 
 }
