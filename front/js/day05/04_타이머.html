@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>타이머</title>
+	<script src="../../static/js/jquery.min.js"></script>
+	<style>
+		.box-timer{
+			border: 2px solid black; padding: 30px;
+			font-size: 30px; text-align: center; width: 500px;
+			margin: 0 auto;
+		}
+		.box-btns{
+			width: 500px; margin: 10px auto;
+		}
+		.box-btns::after{
+			clear: both; display: block; content: '';
+		}
+		.btn{
+			width: 45%; float: left; border: 2px solid black; height: 30px;
+			cursor: pointer;
+		}
+		.btn-stop{
+			float: right;
+		}
+	</style>
+</head>
+<body>
+	<div class="box-timer">
+		00:00:00
+	</div>
+	<div class="box-btns">
+		<button class="btn btn-start">시작</button>
+		<button class="btn btn-stop">중지</button>
+	</div>
+	<script>
+		var h = 0, m = 0, s = 0;
+
+		$('.btn btn-start').click(function(){
+
+		});
+
+		$('.btn btn-stop').click(function(){
+
+		});
+
+	</script>
+</body>
+</html>

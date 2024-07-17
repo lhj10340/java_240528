@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>페이지 이동</title>
+	<script src="../../static/js/jquery.min.js"></script>
+	<style>
+		.pagenation{
+			display: flex; justify-content: center;
+			margin-top: 10px;
+		}
+		.box-page{ margin: 0px;}
+		.box{ height: 300px; display: none; border: 1px solid black;}
+		.block{ display: block;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box box1 block">1</div>
+		<div class="box box2">2</div>
+		<div class="box box3">3</div>
+	</div>
+	<div class="pagenation">
+		<button class="btn-prev"><</button>
+		<span class="box-page">
+			<span class="page">1</span>
+			/
+			<span class="max-page">3</span>
+		</span>
+		<button class="btn-next">></button>
+
+		<script>
+	
+		 // 이전 버튼에 이벤트 등록
+		 // $('.btn-prev').이벤트명(function(){}); 
+		 // 이벤트를 등록하는 방법, 이번 예제에서 적어도 이건 할 줄 알아야 한다.
+			$('.btn-prev').click(function(){
+		
+			// 현재 페이지 숫자를 가져오기
+				var page = $('.page').text();
+		 	// 현재 페이지 숫자를 1 감소 ( 여기 못 했다. )
+				page--;
+		 	// 현재 페이지가 0이면 3으로 수정
+				if(page == 0){
+					page = 3;
+				}
+				displayBox(page);
+			})
+
+		// 이후 버튼에 이벤트 등록
+			$('.btn-next').click(function(){
+
+			// 현재 페이지 숫자를 가져오기
+			var page = $('.page').text();
+			// 현재 페이지 숫자를 1 증가 ( 여기 못 했다. )
+					page++;
+			// 현재 페이지가 4면 1으로 수정
+				if(page == 4){
+					page = 1;
+				}
+				displayBox(page);
+			});
+			
+			function displayBox(page){
+
+				// .box들을 감춘다
+				$('.box').hide();
+			// .box 중에서 현재페이지 -1번지에 있는 박스를 선택해서 보여주기 ( 여기 못 했다. )
+				$('.box').eq(page-1).show();
+			// 현재 페이지를 수정 ( 여기 못 했다. )
+				$('.page').text(page);
+
+			}
+
+		</script>
+
+	</div>
+</body>
+</html>
