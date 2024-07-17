@@ -134,6 +134,10 @@
 			$(this).css('border-color', 'black');
 		})
 
+		var offset = null; // 마우스를 눌렀을 때, 박스의 왼쪽 위의 점.
+		var x = null;
+		var y = null;
+	
 		$('.box4').mousemove(function(e){
 			if(!flag)
 			return;
