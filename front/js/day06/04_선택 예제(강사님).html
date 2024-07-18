@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>선택 예제</title>
+	<script src="../../static/js/jquery.min.js"></script>
+	<style>
+		.box{
+			width: 300px; height: 100px; border: 3px solid black; line-height: 50px;
+			font-size: 30px; font-weight: bold; text-align: center;
+		}
+		.box-list{
+			display: flex; justify-content: space-evenly;
+		}
+		.box-check-list{
+			text-align: center; margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box-list">
+			<div class="box"></div>
+			<div class="box"></div>
+			<div class="box"></div>
+		</div>
+		<div class="box-check-list">
+			<label>
+				<input type="checkbox" name="sports" value="야구"> 야구
+			</label>
+			<label>
+				<input type="checkbox" name="sports" value="농구"> 농구
+			</label>
+			<label>
+				<input type="checkbox" name="sports" value="축구"> 축구
+			</label>
+			<label>
+				<input type="checkbox" name="sports" value="배구"> 배구
+			</label>
+			<label>
+				<input type="checkbox" name="sports" value="골프"> 골프
+			</label>
+		</div>
+	</div>
+	<script>
+
+		// 체크를 한 종목이 상자 안에 들어가고, 체크를 풀면 다음 것이 앞으로 이동, 
+		// 최대 3개 선택이 가능하도록 코드를 작성하시오.
+
+		var list = [];
+		// id는 사용하면 안된다. 실행이 안되는 것은 아닌데, 이벤트를 각각 등록해야한다. 이름을 다르게.
+		$('[name=sports]').change(function(){
+			// 이벤트가 발생한 체크박스의 체크 상태를 가져온다.
+			var checked = $(this).prop('checked');
+			// 이벤트가 발생한 체크박스의 value를 가져온다.
+			var value = $(this).val
+			// 체크된 상태라면 value값을 list에 추가한다.
+			if(checked){
+				if(list.length == 3){
+					$(this).prop('checked', false);
+					alert('최대 3개까지 선택 가능합니다.')
+				}
+				list.push(value);
+			}
+			// 체크가 해제된 상태면 value값을 리스트에서 제거
+			else{
+				var index = list.indexOf(value);
+				list.splice(index, 1);
+			}
+			// display 함수를 호출
+			display(list)
+		});
+
+		// list가 주어지면 주어진 list에 맞게 박스를 작성하는 메소드
+			function display(list){
+				// 모든 박스의 텍스트를 빈 텍스트로 수정
+				$('.box').text('');
+				// 반복문을 이용하여 list이에 있는 값을 하나씩 꺼내서 박스에 텍스트로 순차적으로 수정.
+				// eq(번지) - 를 활용할 것.
+				for(var i = 0; i < list.length; i++){
+					$('.box').eq(i).text(list[i]);
+				}
+				
+			}
+
+	</script>
+</body>
+</html>

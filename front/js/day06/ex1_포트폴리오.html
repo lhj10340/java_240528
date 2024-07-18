@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>포트폴리오</title>
+	<script src="../../static/js/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+	<style>
+		.table{
+			border: 1px solid black;
+			width: 500px;
+			text-align: center;
+		}
+		.first{
+			color: aliceblue;
+			background-color: tomato;
+			border: 1px solid black;
+			width: 100%;
+		}
+		.second{
+			background-color: antiquewhite;
+			border: 1px solid black;
+		}
+		.third{
+			color: aliceblue;
+			background-color: tomato;
+			border: 1px solid black;
+		}
+		.btn{
+			width: 75px;
+		}
+		label{
+			font-weight: bold;
+			text-align: center;
+		}
+		.write{
+			display: block;
+			width: 75px;
+			margin-top: 15px;
+			margin-left: 100px;
+		}
+		.form-control{
+			width: 50%; height: 50%;
+			min-height: 24px; line-height: 24px; margin-top: 5px;
+		}
+		.error{color: red;}
+		.content{
+			text-align: center;
+		}
+		.form-group::after{
+			display: block; content:''; clear: both;
+		}
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>공지사항 작성하기</legend>
+		<form action="insert.no" method="post">
+			<div>
+				<label for="title">제목</label>
+				<input type="text" placeholder="제목을 입력하시오." class="form-control">
+			</div>
+			<div>
+				<label for="title1" id="title1-error" class="error"></label>
+			</div>
+			<div>
+				<label for="content" class="content">내용</label>
+				<textarea name="content" id="content" placeholder="내용을 입력하시오." rows="10" class="form-control"></textarea>
+			</div>
+			<div>
+				<label for="content1" id="content1-error" class="error"></label>
+			</div>
+			<div class="form-control">
+				<label for="content">첨부파일</label>
+				<button name="uploadFile">파일 선택</button>
+				선택된 파일 없음.
+			</div>
+			<div>
+				<button class="write">작성하기</button>
+			</div>
+		</form>
+	</fieldset>
+	<hr>
+	<div class="container">
+		<table class="table">
+			<thead class="first">
+				<tr>
+					<th>번호</th>
+					<th colspan="2">제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody class="second">
+				<tr>
+					<td>9</td>
+					<td>공지사항 제목 9</td>
+					<td><button class="btn">바로가기</button></td>
+					<td>user01</td>
+					<td>2021-03-29</td>
+					<td>34</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>공지사항 제목 6</td>
+					<td><button class="btn">바로가기</button></td>
+					<td>answ445</td>
+					<td>2021-03-12</td>
+					<td>67</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>공지사항 제목 3</td>
+					<td><button class="btn">바로가기</button></td>
+					<td>testg12</td>
+					<td>2021-03-01</td>
+					<td>98</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>공지사항 제목 2</td>
+					<td><button class="btn">바로가기</button></td>
+					<td>palwe3</td>
+					<td>2021-01-02</td>
+					<td>85</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>공지사항 제목 1</td>
+					<td><button class="btn">바로가기</button></td>
+					<td>xml23</td>
+					<td>2020-12-24</td>
+					<td>124</td>
+				</tr>
+			</tbody>
+			<tfoot class="third">
+				<tr>
+					<td colspan="4">전체공지사항 갯수</td>
+					<td colspan="2">5개</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+
+	<script>
+		$('form').validate({
+
+			messages : {
+				title1 : {
+					required : '필수항목입니다.',
+				},
+				content1 : {
+					required : '필수항목입니다.',
+				}
+
+			}
+			
+		});
+	</script>
+</body>
+</html>

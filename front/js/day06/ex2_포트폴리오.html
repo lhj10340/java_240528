@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>포트폴리오 no.2</title>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+	<style>
+		.container{
+			width: 400px; height: 250px;
+			border: 1px solid white;
+		}
+		.btn{
+			width: 50%;
+			background-color: lightgreen;
+			border: none;
+			font-weight: bold;
+		}
+		.error-pw{
+			color: gray;
+			font-size: x-small;
+		}
+		.form-group>label, .form-group>input{
+			float: left;
+			margin-top: 10px;
+		}
+		.form-group::after{
+			display: block; content:''; clear: both;
+		}
+		.form-group>label{
+			width: 120px;
+			margin-top: 5px;
+			margin-left: 5px;
+		}
+		.form-group>input{
+			border-top-style: none;
+			border-bottom-style: dashed;
+			border-left-style: none;
+			border-right-style: none;
+		}
+		.form-group{
+			margin-top: 2px;
+		}
+		.error{
+			color: red;
+			font-size: x-small;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form action="">
+			<div class="form-group">
+				<label for="id">아이디 :</label>
+				<input type="text" name="id" id="id" class="form-style">
+			</div>
+			 <div>
+				<label for="id" id="id-error" class="error"></label>
+			</div>
+			<div class="form-group">
+				<label for="password">패스워드 :</label>
+				<input type="password" name="pw" id="pw" class="form-style">
+			</div>
+			<div>
+			 <label for="pw" id="pw-error" class="error"></label>
+		 </div>
+		 <div class="error-pw"></div>
+			<div class="form-group">
+				<label for="password">패스워드 확인 :</label>
+				<input type="password" name="pw2" id="pw2" class="form-style">
+			</div>
+			 <div>
+				<label for="pw" id="pw-error" class="error"></label>
+			</div>
+			<div class="form-group">
+				<label for="email">이메일 :</label>
+				<input type="text" name="email" id="email" class="form-style">
+			</div>
+			<div class="form-group">
+				<label for="address">주소 :</label>
+				<input type="text" name="address" id="address" class="form-style">
+			</div>
+			<hr>
+			<button type="submit" class="btn">가 입</button>
+		</form>
+	</div>
+
+	<script>
+		$('#pw').click(function(){
+			$('.error-pw').text("영문자 대/소문자 특수문자, 숫자포함 8 ~ 32자").show();
+		});
+		$('#pw').blur(function(){
+			$('.error-pw').text('').hide();
+		})
+
+		$('form').validate({
+
+			rules : {
+				id : {
+					required : true,
+				},
+				pw : {
+					required : true,
+				},
+				pw2 : {
+					equalTo : pw
+				}
+			},
+			
+			messages : {
+				id : {
+					required : '필수 입력 항목입니다.',
+				},
+				pw : {
+					required : '필수 입력 항목입니다.',
+				},
+				pw2 : {
+					equalTo : '비번과 일치하지 않습니다.'
+				},
+			},
+			
+		});
+
+	</script>
+</body>
+</html>
