@@ -19,6 +19,8 @@ SELECT * FROM score where midTerm >= 90;
 
 /*
 검색 결과 행의 중복 제거 : distinct
+	- 전체 속성을 검색하는 경우, 중복이 발생하지 않는다.
+    - 일부 속성을 검색하는 경우, 중복이 발생할 수 있는데, 이 때 사용한다.
 select distinct 속성명1, 속성명2, ... 속성명N from 테이블명 [where 조건]
 */ 
 
@@ -55,8 +57,6 @@ select * from 테이블명 [where 조건] order by 속성명 [desc|asc] [, 속�
 select * from student
 order by grade desc, class, num;
 
-# 학생 조회 페이지가 있고, 학생 학년, 반, 번호를 오름차순으로 정렬할 때
-
 /*
 limit
 	검색 결과에서 원하는 위치부터 원하는 개수를 가져와서 조회
@@ -64,8 +64,10 @@ limit 번지, 개수 : 번지부터 개수만큼 가져와서 조회
 limit 개수 : 0번지부터 개수만큼 가져와서 조회
 */
 
+# 학생들 중에서 2명을 조회
 select * from student limit 2;
 
+# 학생 조회 페이지가 있꼬, 학생 학년, 반, 번호를 오름차순으로 정렬할 때
 # 1페이지에 있는 학생들을 조회(단, 1페이지에는 최대 2명 조회)
 select * from student order by grade, class, num limit 0,2;
 # 2페이지에 있는 학생들을 조회
