@@ -266,3 +266,6 @@ ALTER TABLE `ticketing_list` ADD CONSTRAINT `FK_ticketing_TO_ticketing_list_1` F
 REFERENCES `ticketing` (
 	`ti_num`
 );
+
+ALTER TABLE `cgv`.`schedule` 
+ADD COLUMN `sd_possible` INT NOT NULL AFTER `sd_sc_num`;
