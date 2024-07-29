@@ -17,5 +17,7 @@ public interface SubjectDAO {
 	boolean deleteSubject(@Param("subject")String subject);
 
 	ArrayList<SubjectVO> selectSubjectNameList();
-	
+
+	SubjectVO selectSubject(@Param("subject")SubjectVO subject);
+
 }
