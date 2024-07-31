@@ -51,6 +51,8 @@ public class PostServiceImp implements PostService {
 	@Override
 	public boolean updateCommunity(String oldName, String newName) {
 		
+		// trim(), equals() 를 사용하려면 null 이 있으면 안된다. 그래서 null 체크가 필요하다.
+		
 		// 이전 커뮤니티명과 이후 커뮤니티명 중에 null 이 있거나 이후 커뮤니티명의 길이가 0이면 false 를 리턴
 		if(oldName == null || newName == null || newName.trim().length() == 0) {
 			return false;
@@ -78,5 +80,13 @@ public class PostServiceImp implements PostService {
 		oldVo.setCo_name(newName.trim());
 		// dao 에게 이전 커뮤니티VO를 주면서 커뮤니티명을 수정하라고 요청하고 처리 여부를 반환
 		return postDao.updateCommunity(oldVo);
+	}
+
+	@Override
+	public boolean deleteCommunity(String name) {
+		
+		// dao 에게 커뮤니티명을 주면서 삭제하라고 요청 후, 삭제 여부를 반환
+		
+		return postDao.deleteCommunity(name);
 	}
 }

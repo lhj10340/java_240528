@@ -51,5 +51,21 @@ public class PostController {
 		}
 		
 	}
+
+	public void deleteCommunity() {
+		
+		// 삭제할 커뮤니티명을 입력
+		System.out.println("커뮤니티명 입력 : ");
+		String name = scan.next();
+		// 서비스에게 커뮤티니명을 주고 삭제하라고 요청, 성공하면 커뮤니티 삭제 성공!
+		PrintController.printBar();
+		if(postService.deleteCommunity(name)) {
+			System.out.println("커뮤니티 삭제 성공!");
+		// 실패하면 커뮤니티 수정 실패! 를 출력
+		} else {
+			System.out.println("커뮤니티 삭제 실패!");
+		}
+		
+	}
 	
 }
