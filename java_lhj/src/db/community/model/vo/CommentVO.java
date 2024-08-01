@@ -24,4 +24,12 @@ public class CommentVO {
 		this.cm_content = content;
 		this.cm_me_id = id;
 	}
+
+	@Override
+	public String toString() {
+		return cm_me_id + " | " + cm_content;
+	}
+	
+	
+	
 }

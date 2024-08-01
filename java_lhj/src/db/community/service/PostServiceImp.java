@@ -179,6 +179,17 @@ public class PostServiceImp implements PostService {
 		return postDao.insertComment(comment);
 	}
 
+	@Override
+	public List<CommentVO> getCommentList(int po_num) {
+		return postDao.selectCommentList(po_num);
+	}
+
+	@Override
+	public void updatePostView(int poNum) {
+		postDao.updatePostView(poNum);
+		
+	}
+
 
 	
 }

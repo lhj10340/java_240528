@@ -143,6 +143,8 @@ public class PostController {
 		//게시글 번호 입력
 		System.out.print("번호 : ");
 		int poNum = scan.nextInt();
+		//서비스에게 조회하려는 게시글의 조회수를 증가 시키라고 요청
+		postService.updatePostView(poNum);
 		//서비스에게 게시글 번호를 주면서 게시글을 가져오라고 요청
 		PostVO post = postService.getPost(poNum);
 		//가져온 게시글을 출력
@@ -203,6 +205,36 @@ public class PostController {
 		}
 		
 	}
-	
-	
-}
+
+	public void printCommentList(PostVO post) {
+		
+		List<CommentVO> list = null;
+		
+		// 서비스에게 게시글 번호를 주면서 댓글 리스트를 가져오라고 요청
+		try {
+			list = postService.getCommentList(post.getPo_num());
+			// 예외 발생 시, 등록되지 않은 게시글이거나 삭제된 게시글입니다. 라고 출력
+		} catch (Exception e) {
+			System.out.println("등록되지 않은 게시글이거나 삭제된 게시글입니다.");
+			return;
+		}
+		// 댓글 리스트가 0개이면 등록된 댓글이 없습니다. 라고 출력
+		if(list.size() == 0) {
+			System.out.println("등록된 댓글이 없습니다.");
+			return;
+		} 
+		System.out.println("댓글 목록");
+		// 있으면 댓글 리스트에서 하나씩 꺼내 출력한다. ( CommentVO 의 toString 을 오버라이딩 )
+			for(CommentVO comment : list) {
+				System.out.println(comment);
+			}
+			
+			PrintController.printBar();
+			System.out.println("엔터를 치세요.");
+			scan.nextLine();//버퍼에 남은 엔터 처리
+			scan.nextLine();//사용자가 입력한 엔터 처리
+			PrintController.printBar();
+			
+		}
+
+	}

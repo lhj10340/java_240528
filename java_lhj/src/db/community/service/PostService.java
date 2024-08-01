@@ -31,4 +31,8 @@ public interface PostService {
 
 	boolean insertComment(CommentVO comment);
 
+	List<CommentVO> getCommentList(int po_num);
+
+	void updatePostView(int poNum);
+
 }
