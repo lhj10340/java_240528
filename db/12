@@ -7,18 +7,18 @@ select * from movie join movie_genre on mg_mo_num = mo_num;
 # 장르가 액션인 영화를 조회하는 쿼리
 select * from movie join movie_genre on mg_mo_num = mo_num where mg_ge_name = '액션';
 
-# 장르가 액션인 영화를 조회하는 쿼리 (join을 이용하지 않고, 서브쿼리를 이용하여 검색하는 방법)
+# 장르가 액션인 영화를 조회하는 쿼리 (join을 이용하지 않고, 서브쿼리를 이용하여 검색하는 방법) !!!
 select * from movie where mo_num in (select mg_mo_num from movie_genre where mg_ge_name = '액션');
 
 # 장르가 액션으로 등록된 영화 수를 조회하는 쿼리
 select mg_ge_name 장르 , count(mg_mo_num) 영화수 from movie_genre where mg_ge_name = '액션' group by mg_ge_name;
 
-# 모든 장르에 등록된 영화의 수를 조회하는 쿼리 (단, 영화가 등록되지 않은 장르들은 조회가 되지 않도록 할 것)
+# 모든 장르에 등록된 영화의 수를 조회하는 쿼리 (단, 영화가 등록되지 않은 장르들은 조회가 되지 않도록 할 것) !!!
 select * from movie_genre; # 내가 한 것.
 select mg_ge_name 장르 , count(mg_mo_num) 영화수 from movie_genre group by mg_ge_name; # 강사님이 하신 것
 
-# 모든 장르에 등록된 영화의 수를 조회하는 쿼리 (단, 영화가 등록되지 않은 장르들도 조회가 되도록)
-select * from genre left join movie_genre on mg_ge_name = ge_name; # 내가 한 것. // group by를 사용할 때, select 부분의 입력을 잘 해두어야 한다.
+# 모든 장르에 등록된 영화의 수를 조회하는 쿼리 (단, 영화가 등록되지 않은 장르들도 조회가 되도록) !!!
+select * from genre left join movie_genre on mg_ge_name = ge_name; # 내가 한 것.
 select mg_ge_name 장르 , count(mg_mo_num) 영화수 from movie_genre right join genre on mg_ge_name = ge_name group by ge_name; # 강사님이 하신 것
 
 # 등록된 영화를 이름순으로 6개 조회하는 쿼리 (내림차순, 1페이지)
@@ -28,7 +28,7 @@ select * from movie order by mo_title desc limit 0, 6; # 내가 필기 찾아보
 # 1번지에 6개, 0 ~ 5 (6개) 그래서 6번지부터 시작해야한다.
 select * from movie order by mo_title desc limit 6, 6;
 
-# 데드풀과 울버린을 관람한 관객 수를 조회하는 쿼리
+# 데드풀과 울버린을 관랑한 관객 수를 조회하는 쿼리
 select * from movie join schedule on mo_num = sd_mo_num join ticketing on ti_sd_num = sd_num; # 내가 한 것.
 
 select * from ticketing join schedule on ti_sd_num = sd_num; # 강사님이 하신 것.
@@ -146,7 +146,7 @@ SELECT * FROM COMMENT WHERE CM_PO_NUM = 1 order by cm_ori_num, cm_num limit 0,5;
 select * from post order by po_view desc;
 
 # 게시글을 조회(조회수가 많은 순으로 조회할 것, 조회순으로 했을 때, 3위 게시글까지 조회, rank()를 이용)
-select *, rank() over(order by po_view desc) AS RANKING from post; # 내가 한 것 ( 맞았나 모르겠다. )
+select *, rank() over(order by po_view desc) from post; # 내가 한 것 ( 맞았나 모르겠다. )
 
 select * from (select rank() over(order by po_view desc) as ranking, post.* from post) as po 
 where ranking <= 3;  # 강사님이 하신 것
