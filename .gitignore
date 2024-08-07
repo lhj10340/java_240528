@@ -4,3 +4,5 @@
 .settings/
 
 java_lhj/.gitignore
+
+MANIFEST.MF
