@@ -1,4 +1,4 @@
-package servlet1.model.vo;
+package kr.kh.app.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Person {
-
-	private String name;
-	private int age;
-	
+public class LoginDTO {
+	private String id;
+	private String pw;
+	private String email;
 }

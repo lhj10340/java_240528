@@ -1,4 +1,4 @@
-package servlet1.controller;
+package kr.kh.app.controller;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servlet1.model.vo.Person;
+import kr.kh.app.model.vo.Person;
 
 @WebServlet("/")
 public class Main extends HttpServlet {
@@ -25,8 +25,19 @@ public class Main extends HttpServlet {
 		Person p = new Person("임꺽정", 20);
 		request.setAttribute("person", p);
 		
+		String name = request.getParameter("name");
+		System.out.println("화면에서 보낸 이름 : " + name);
+		Integer age = null;
+		
+		try {
+		age = Integer.parseInt(request.getParameter("age"));
+		System.out.println("화면에서 보낸 나이 : " + age);
+		} catch(Exception e) {
+			System.out.println("화면에서 보낸 나이 : null");
+		}
 		// WEM-INF/views/main.jsp를 가져와서 화면에 전달
 		 request.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(request, response);
+		
 	}
 
 }
