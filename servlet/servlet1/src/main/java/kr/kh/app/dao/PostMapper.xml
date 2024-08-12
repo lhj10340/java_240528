@@ -49,4 +49,18 @@
 	<update id="updatePostView">
 		update post set po_view = po_view + 1 where po_num = #{po_num}
 	</update>
+	
+	<update id="updatePost">
+		update post
+		set 
+			po_title = #{post.po_title},
+			<!-- 오타 주의 ... -->
+			po_content = #{post.po_content}
+		where
+			po_num = #{post.po_num}
+	</update>
+	
+	<delete id="deletePost">
+		delete from post where po_num = #{po_num}
+	</delete>
 </mapper>

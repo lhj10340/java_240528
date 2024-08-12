@@ -26,13 +26,12 @@ public class PostDetail extends HttpServlet {
 			// 조회수 증가
 			postService.updatePostView(num);
 			// 가져온 게시글 번호에 맞는 게시글 정보를 가져오라고 시킨다.
-			PostVO post = postService.getPostList(num);
+			PostVO post = postService.getPost(num);
 			// 게시글을 화면에 전송
 			request.setAttribute("post", post);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 		request.getRequestDispatcher("/WEB-INF/views/post/detail.jsp").forward(request, response);
 	}
