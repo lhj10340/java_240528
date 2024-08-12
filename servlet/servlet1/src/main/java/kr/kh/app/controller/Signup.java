@@ -20,7 +20,7 @@ public class Signup extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("WEB-INF/views/signup.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/signup.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,12 +33,13 @@ public class Signup extends HttpServlet {
 		if(memberService.signup(member)) {
 			request.setAttribute("msg", "회원 가입에 성공했습니다.");
 			request.setAttribute("url", "/");
-			request.getRequestDispatcher("WEB-INF/views/signup.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "회원 가입에 실패했습니다.");
 			request.setAttribute("url", "/signup");
 		}
-		request.getRequestDispatcher("/WEB-INFO/wiews/message.jsp");
+		// forward를 붙이지 않으면, 정보를 가져오기만 한 상태라서 이동이 되지 않는다.
+		// 회원가입이 완료되도 메세지가 나오지 않고, 이동도 되지 않는다.
+		request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
 	}
 
 }
