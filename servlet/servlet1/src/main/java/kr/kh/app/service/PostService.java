@@ -17,4 +17,10 @@ public interface PostService {
 
 	PageMaker getPageMaker(Criteria cri, int displayPageNum);
 
+	boolean insertPost(PostVO post);
+
+	PostVO getPostList(int num);
+
+	void updatePostView(int num);
+
 }

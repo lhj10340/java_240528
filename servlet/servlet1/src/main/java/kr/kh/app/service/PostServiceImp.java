@@ -63,4 +63,29 @@ private PostDAO postDao;
 		return new PageMaker(totalCount, displayPageNum, cri);
 	}
 
+	@Override
+	public boolean insertPost(PostVO post) {
+		if(post == null) {
+			return false;
+		}
+		if(post.getPo_title() == null || post.getPo_title().trim().length() == 0) {
+			return false;
+		}
+		if(post.getPo_content() == null || post.getPo_content().trim().length() == 0) {
+			return false;
+		}
+		return postDao.insertPost(post);
+	}
+
+	@Override
+	public PostVO getPostList(int num) {
+		
+		return postDao.selectPost(num);
+	}
+
+	@Override
+	public void updatePostView(int num) {
+		postDao.updatePostView(num);
+	}
+
 }
