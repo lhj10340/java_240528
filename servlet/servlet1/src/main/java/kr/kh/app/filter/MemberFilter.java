@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.kh.app.model.vo.MemberVO;
 
-@WebFilter({"/post/insert", "/post/update", "/post/delete"})
+@WebFilter({"/post/insert", "/post/update", "/post/delete", "/post/recommend"})
 public class MemberFilter extends HttpFilter implements Filter {
        
 
