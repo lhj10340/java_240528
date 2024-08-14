@@ -9,7 +9,17 @@
 <title>게시글 등록</title>
 
 <jsp:include page="/WEB-INF/views/common/head.jsp"/>
-
+<style type="text/css">
+.comment-list{
+	list-style : none; padding: 0;
+}
+.comment-list>.comment-item{
+	margin-bottom: 20px;
+}
+.comment-list>.comment-item.reply{
+	padding-left: 50px;
+}
+</style>
 </head>
 <body>
 
@@ -45,9 +55,20 @@
 			<label for="content">내용 :</label> 
 			<div class="form-control" style="min-height: 400px">${post.po_content}</div>
 		</div>
-		
+		<hr>
 		<div>
-			<ul class="comment-list"></ul>
+		<h3>댓글 목록</h3>
+			<ul class="comment-list">
+				<li class="comment-item">
+					<div>작성자 아이디(시간)</div>
+					<div>댓글 내용</div>
+				</li>
+				<li class="comment-item reply">
+					<div>작성자 아이디(시간)</div>
+					<div>대댓글 내용</div>
+				</li>
+			</ul>
+			<div class="comment-pagination"></div>
 		</div>
 		
 		<a href="<c:url value="/post/list?co_num=${post.po_co_num }"/>" class="btn btn-outline-primary">목록</a>
@@ -63,6 +84,10 @@ var cri = {
 		num : '${post.po_num}',
 		page : 1
 }
+
+getCommentList(cri);
+
+// 추천과 비추천 버튼 클릭이벤트
 	$('.btn-up, .btn-down').click(function(e){
 		// preventDefault 는 태그의 고유 속성을 없애준다.
 		e.preventDefault()
@@ -107,6 +132,20 @@ var cri = {
 			}
 		});
 	})
+	
+// 댓글 페이지네이션 클릭 이벤트
+$(document).on('click', ".pagination .page-item", function(){
+	if($(this).hasClass('disabled')){
+		return;
+	}
+	let page = $(this).data('page');
+	cri.page = page;
+	getCommentList(cri);
+	});
+	
+	
+	
+	
 // 해당 게시글의 추천/비추천에 따라 각 버튼의 색상을 채워주는 함수
 function checkRecommendBtns(state){
 		$('.btn-up, .btn-down').removeClass('btn-danger');
@@ -116,7 +155,7 @@ function checkRecommendBtns(state){
 			$(state == 1?'.btn-up':'.btn-down').addClass('btn-danger')
 		}
 	}
-	getCommentList(cri);
+	
 function getCommentList(cri){
 	console.log(cri)
 	$.ajax({
@@ -141,7 +180,39 @@ function getCommentList(cri){
 }
 
 function displayPagnation(pm){
-	console.log(pm);
+	if(pm.totalCount == 0){
+		return;
+	}
+	console.log(pm)
+	str = `
+	<ul class="pagination justify-content-center">`;
+	
+	var disabled = pm.prev ? '' : 'disabled'
+		str +=
+	    `<li class="page-item \${disabled}" data-page="\${pm.startPage-1}">
+	    	<a class="page-link" href="javascript:void(0);">이전</a>
+	    </li>`;
+	
+	    // javascript:void(0); 는 preventDefault 와 동일한 효과 : 동작을 안하게 한다.
+	    
+	for(var i = pm.startPage; i<=pm.endPage; i++){
+		var active = pm.cri.page == i ? 'active' : '';
+		str +=
+	    `<li class="page-item \${active}"  data-page="\${i}">
+	    	<a class="page-link" href="javascript:void(0);">\${i}</a>
+	    </li>`;
+	}
+	
+	var disabled = pm.next ? '' : 'disabled'
+		str+=
+	  ` <li class="page-item \${disabled}" data-page="\${pm.endPage+1}">
+	    	<a class="page-link" href="javascript:void(0);">다음</a>
+	    </li>`;
+	   
+	   
+	   str+=
+  	`</ul>`;
+  		  $('.comment-pagination').html(str);
 }
 
 
@@ -153,13 +224,29 @@ function displayCommentList(list){
 		return;
 	}
 	
+	
 	for(co of list){
-		str += `
-		<li>\${co.cm_content}</li>
+		// 댓글이면
+		if(co.com_num == co.com_ori_num){
+			str += `
+			<li class="comment-item">
+			<div>\${co.cm_me_id}(\${co.cm_date})</div>
+			<div>\${co.cm_content}</div>
+		</li>
 		`;
+		}
+		//대댓이면
+		else{
+			str += `
+			<li class="comment-item reply">
+				<div>\${co.cm_me_id}(\${co.cm_date})</div>
+				<div>${co.cm_content}</div>
+			</li>
+			`;
+			}
+		}
+		$('.comment-list').html(str);
 	}
-	$('.comment-list').html(str);
-}
 
 </script>
 </body>
