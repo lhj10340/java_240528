@@ -69,6 +69,10 @@
 				</li>
 			</ul>
 			<div class="comment-pagination"></div>
+			<div class="comment-insert-box">
+			<textarea rows="" cols="" class="col-12 input-comment-insert"></textarea>
+			<button class="btn btn-outline-success btn-comment-insert">등록</button>
+			</div>
 		</div>
 		
 		<a href="<c:url value="/post/list?co_num=${post.po_co_num }"/>" class="btn btn-outline-primary">목록</a>
@@ -92,14 +96,9 @@ getCommentList(cri);
 		// preventDefault 는 태그의 고유 속성을 없애준다.
 		e.preventDefault()
 		
-		if('${user.me_id}' == ''){
-			if(confirm('로그인이 필요한 서비스입니다. \n 로그인 페이지로 이동하시겠습니까?')){
-				location.href = '<c:url value="/login"/>';
-				return;
-			}else{
-				return;
-				}
-			}
+		if(!checkLogin()){
+			return;
+		}
 		
 		let state = $(this).data('state');
 		let num = '${post.po_num}';
@@ -143,9 +142,133 @@ $(document).on('click', ".pagination .page-item", function(){
 	getCommentList(cri);
 	});
 	
+$('.btn-comment-insert').click(function(){
+	// 로그인 안한 비회원을 위한 안내 작업
+	if(!checkLogin()){
+		return;
+	}
+	// 댓글, 댓글 번호
+	let content = $('.input-comment-insert').val();
+	let cm_ori_num = 0;
+	let po_num = '${post.po_num}'
+	
+	// 내용이 비어있거나 공백으로 되어있는 겨웅
+	
+	if(content.trim()==''){
+		alert('댓글을 입력하세요');
+	}$('.input-comment-insert').focus();
+		return;
+	
+	let obj = {
+			// 변수 이름 : 값 //
+			cm_content : content,
+			cm_ori_num : cm_ori_num,
+			cm_po_num : po_num			
+	};
+	
+	// 내가 보내려는 내용이 제대로 보내지는지 확인을 할 필요가 있다.
+	console.log(obj)
+	
+		$.ajax({
+			url : '<c:url value="/comment/insert"/>',
+			method : "post",
+			// 그냥 입력하는 것과 객체를 입력하는 것과는 다르다. 변경이 가능하다. cri.page = 2 와 같이 ...
+			data : 
+				obj
+			,
+			success : function(data){
+				console.log(data);
+				if(data.result){
+					alert('댓글을 등록했습니다.');
+					cri.page = 1;
+					getCommentList(cri);
+				}
+				else{
+					alert("댓글을 등록하지 못했습니다.");
+				}
+					$('.input-comment-insert').val('');
+			}, 
+			error : function(xhr, status, error){
+				console.log("에러 발생");
+				console.log(xhr);
+			}
+		});
+});
 	
 	
-	
+$(document).on('click','.btn-comment-delete', function(){
+	let co_num = $(this).data('num');
+	let obj = {
+		co_num : co_num
+	}
+	$.ajax({
+		url : '<c:url value="/comment/delete"/>',
+		method : "post",
+		data : obj,
+		success : function(data){
+			if(data.result){
+				alert('댓글을 삭제했습니다.');
+				cri.page = 1;
+				getCommentList(cri);
+			}
+			else{
+				alert('댓글을 삭제하지 못했습니다.');
+			}
+			
+		}, 
+		error : function(xhr, status, error){
+			console.log("error");
+			console.log(xhr);
+		}
+	});
+})
+
+$(document).on('click','.btn-comment-update', function(){
+	$('.comment-update-box').remove();
+	let cm_num = $(this).data('num');
+	let cm_content = $(this).parent().next().text()
+	// 수정 입력창과 수정 완료 버튼을 추가한다
+	var str = `
+		<div class="comment-update-box">
+		<textarea class="col-12 input-comment-update"></textarea>
+		<button class="btn btn-outline-success btn-comment-update-complete" data-num="\${cm_num}">수정 완료</button>
+		</div>
+		`
+	$('.comment-insert-box').after(str);
+	// 댓글 등록 입력창과 등록 버튼을 감춘다.
+	$('.comment-insert-box').hide();
+	})
+
+$(document).on('click','.btn-comment-update-complete', function(){
+	let cm_num = $(this).data('num');
+	let cm_content = $('.input-comment-update').val();
+	let obj = {
+			cm_num : cm_num,
+			cm_content : cm_content
+	}
+	$.ajax({
+		url : '<c:url value="/comment/update"/>',
+		method : "post",
+		data : obj,
+		success : function(data){
+			if(data.result){
+				alert('댓글을 수정했습니다.');
+				getCommentList(cri);
+			}
+			else{
+				alert('댓글을 수정하지 못했습니다.');
+			}
+			$('.comment-insert-box').show();
+			$('.comment-update-box').remove();
+		}, 
+		error : function(xhr, status, error){
+			console.log("error");
+			console.log(xhr);
+		}
+	});
+})
+
+
 // 해당 게시글의 추천/비추천에 따라 각 버튼의 색상을 채워주는 함수
 function checkRecommendBtns(state){
 		$('.btn-up, .btn-down').removeClass('btn-danger');
@@ -157,7 +280,6 @@ function checkRecommendBtns(state){
 	}
 	
 function getCommentList(cri){
-	console.log(cri)
 	$.ajax({
 		url : '<c:url value="/comment/list"/>',
 		method : "post",
@@ -169,7 +291,7 @@ function getCommentList(cri){
 			displayCommentList(list);
 			let pm = JSON.parse(data.pm);
 			displayPagnation(pm);
-		}, 
+		},
 		error : function(xhr, status, error){
 			console.log("에러 발생");
 			// 404 get 지원하지 않을 때,
@@ -217,37 +339,62 @@ function displayPagnation(pm){
 
 
 function displayCommentList(list){
+	
 	var str = '';
+	
 	if(list.length == 0){
 		str = `<li>등록된 댓글이 없습니다.</li>`;
 		$('.comment-list').html(str);
 		return;
 	}
 	
-	
 	for(co of list){
+		var btns = '';
+		if(co.cm_me_id == '${user.me_id}'){
+			btns += `<a href="javascript:void(0);" class="btn-comment-delete" data-num="\${co.cm_num}">X</a>`;
+			btns += `<a href="javascript:void(0);" class="btn-comment-update" data-num="\${co.cm_num}">수정</a>`;
+		}
+	
 		// 댓글이면
-		if(co.com_num == co.com_ori_num){
+		if(co.cm_num == co.cm_ori_num){
 			str += `
 			<li class="comment-item">
-			<div>\${co.cm_me_id}(\${co.cm_date})</div>
-			<div>\${co.cm_content}</div>
+			<div>
+				<span>\${co.cm_me_id}(\${co.cm_date})</span>
+				\${btns}
+			</div>
+			<div class ="cm_content">\${co.cm_content}</div>
 		</li>
 		`;
 		}
 		//대댓이면
 		else{
 			str += `
-			<li class="comment-item reply">
-				<div>\${co.cm_me_id}(\${co.cm_date})</div>
-				<div>${co.cm_content}</div>
-			</li>
-			`;
+				<li class="comment-item reply">
+					<div>
+						<span>\${co.cm_me_id}(\${co.cm_date})</span>
+						\${delBtn}
+					</div>
+					<div class ="cm_content">${co.cm_content}</div>
+				</li>
+				`;
 			}
 		}
 		$('.comment-list').html(str);
 	}
 
+function checkLogin(){
+	if('${user.me_id}' == ''){
+		if(confirm('로그인이 필요한 서비스입니다. \n 로그인 페이지로 이동하시겠습니까?')){
+			location.href = '<c:url value="/login"/>';
+			return false;
+		}else{
+			return false;
+			}
+		}
+	return true;
+}
+	
 </script>
 </body>
 </html>

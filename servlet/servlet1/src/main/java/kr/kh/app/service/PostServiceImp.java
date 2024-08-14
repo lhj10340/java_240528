@@ -213,4 +213,46 @@ private PostDAO postDao;
 		int totalCount = postDao.selectCommentTotalCount(cri);
 		return new PageMaker(totalCount, 2, cri);
 	}
+
+	@Override
+	public boolean insertComment(CommentVO comment) {
+		if(comment == null) {
+			return false;
+		}
+		if(comment.getCm_content()== null || comment.getCm_content().trim().length() ==0) {
+			return false;
+		}
+		return postDao.insertComment(comment);
+	}
+
+	@Override
+	public boolean deleteComment(int co_num, MemberVO user) {
+		if(user == null) {
+			return false;
+		}
+		CommentVO comment = postDao.selectComment(co_num);
+		if(comment == null) {
+			return false;
+		}
+		if(!comment.getCm_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		return postDao.deleteComment(co_num);
+	}
+
+	@Override
+	public boolean updateComment(CommentVO comment, MemberVO user) {
+		if(user == null || comment == null) {
+			return false;
+		}
+		// 작성자가 맞는지 확인
+		CommentVO dbcomment = postDao.selectComment(comment.getCm_num());
+		if(dbcomment == null) {
+			return false;
+		}
+		if(!dbcomment.getCm_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		return postDao.updateComment(comment);
+	}
 }
