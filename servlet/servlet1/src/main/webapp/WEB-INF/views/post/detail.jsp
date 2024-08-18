@@ -223,6 +223,10 @@ $(document).on('click','.btn-comment-delete', function(){
 	});
 })
 
+
+// 이 이벤트는 꼭 document 로 작성해야한다.
+// ajax 를 사용하고 있기 때문에, 데이터를 받을 시점에는 없다?
+// $(this) 는 변수, 선택자로 보면 된다. 동일한 소스가 반복되는 곳에서 활용된다.
 $(document).on('click','.btn-comment-update', function(){
 	$('.comment-update-box').remove();
 	let cm_num = $(this).data('num');
@@ -347,7 +351,9 @@ function displayCommentList(list){
 		$('.comment-list').html(str);
 		return;
 	}
-	
+	// 자바스크립트의 for of 는 자바의 향상된 for 문과 같다.
+	// for(변수 이름 of 배열 또는 객체)
+	// co 는 변수 이름이다.
 	for(co of list){
 		var btns = '';
 		if(co.cm_me_id == '${user.me_id}'){
