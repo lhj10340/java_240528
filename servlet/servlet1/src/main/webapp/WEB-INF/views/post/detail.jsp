@@ -55,6 +55,18 @@
 			<label for="content">내용 :</label> 
 			<div class="form-control" style="min-height: 400px">${post.po_content}</div>
 		</div>
+		<div class="form-group">
+			<label for="content">첨부파일 :</label>
+			<c:if test="${fileList.size() == 0 }">
+				<div class="form-control">첨부파일 없음</div>
+			</c:if>
+			<c:if test="${fileList.size() != 0 }">
+				<c:forEach items="${fileList}" var="file">
+					<a class="form-control" 
+					href="<c:url value = "/download?fileName=${file.fi_name}"/>"download = "${file.fi_ori_name}">${file.fi_ori_name}</a>
+				</c:forEach>
+			</c:if>  
+		</div>
 		<hr>
 		<div>
 		<h3>댓글 목록</h3>
@@ -156,9 +168,9 @@ $('.btn-comment-insert').click(function(){
 	
 	if(content.trim()==''){
 		alert('댓글을 입력하세요');
-	}$('.input-comment-insert').focus();
+		$('.input-comment-insert').focus();
 		return;
-	
+	}
 	let obj = {
 			// 변수 이름 : 값 //
 			cm_content : content,

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.kh.app.utils.FileUploadUtils;
+
 
 @WebServlet("/")
 public class Main extends HttpServlet {
@@ -16,7 +18,6 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) 
 					throws ServletException, IOException {
-		
 		// WEM-INF/views/main.jsp를 가져와서 화면에 전달
 		 request.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(request, response);
 		
