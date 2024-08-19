@@ -54,4 +54,10 @@ public interface PostDAO {
 
 	List<FileVO> selectFileList(@Param("po_num")int num);
 
+	FileVO selectFile(@Param("fi_num")int fi_num);
+
+	void deleteFile(@Param("fi_num")int fi_num);
+
+	boolean insertCommunity(@Param("co_name")String co_name);
+
 }

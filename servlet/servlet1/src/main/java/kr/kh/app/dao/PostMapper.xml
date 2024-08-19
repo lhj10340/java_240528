@@ -124,6 +124,7 @@
 	<select id="selectComment" resultType="CommentVO">
 		select * from comment where cm_num = #{cm_num}
 	</select>
+	
 	<delete id="deleteComment">
 		delete from comment where cm_num = #{cm_num}
 	</delete>
@@ -141,4 +142,17 @@
 	<select id="selectFileList" resultType="FileVO">
 		select * from file where fi_po_num = #{po_num}
 	</select>
+	
+	<select id="selectFile" resultType="FileVO">
+		select * from file where fi_num = #{fi_num}
+	</select>
+	
+	<delete id="deleteFile">
+		delete from file where fi_num = #{fi_num}
+	</delete>
+	
+	<insert id="insertCommunity">
+		insert into community(co_name) values(#{co_name})
+	</insert>
+	
 </mapper>

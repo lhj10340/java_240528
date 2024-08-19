@@ -1,19 +1,28 @@
 package kr.kh.app.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
+import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.model.vo.PostVO;
 import kr.kh.app.service.PostService;
 import kr.kh.app.service.PostServiceImp;
 
 @WebServlet("/post/update")
+@MultipartConfig(
+		maxFileSize = 1024 * 1024 * 10, // 10mb
+		maxRequestSize = 1024 * 1024 * 10 * 3, // 최대 용량
+		fileSizeThreshold = 1024 * 1024 // 1mb 단위
+		)
 public class PostUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PostService postService = new PostServiceImp();   
@@ -30,6 +39,12 @@ public class PostUpdate extends HttpServlet {
 			PostVO post = postService.getPost(po_num, user);
 			// 게시글이 null 이 아니면 수정 페이지로 이동
 			if(post != null) {
+				
+				// 첨부파일 정보를 가져온다.
+				List<FileVO> fileList = postService.getFileList(po_num);
+				// 가져온 첨부파일을 화면에 전송.
+				request.setAttribute("fileList", fileList);
+				
 				request.setAttribute("post", post);
 				request.getRequestDispatcher("/WEB-INF/views/post/update.jsp").forward(request, response);
 			}
@@ -61,8 +76,13 @@ public class PostUpdate extends HttpServlet {
 			
 			PostVO post = new PostVO(po_num, title, content);
 			
+			// 추가할 첨부파일을 가져온다.
+			List<Part> fileList = (List<Part>)request.getParts();
+			// 삭제할 첨부파일 번호들을 가져온다.
+			String numStr [] = request.getParameterValues("fi_num");
+			
 			// 서비스에게 게시글 번호와 회원정보를 주면서 게시글을 가져오라고 요청한다.
-			if(postService.updatePost(post, user)) {
+			if(postService.updatePost(post, user, fileList, numStr)) {
 				request.setAttribute("msg", "게시글 수정에 성공했습니다.");
 			} else {
 				throw new RuntimeException();
