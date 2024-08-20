@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 내가 할 때는 class 로 만들었었다 ... -->
+  <!-- 작성도 조금 생각나긴 했지만 제대로 작성하지 못 했다.-->
+  
+<mapper namespace="kr.kh.app.dao.MemberDAO">
+
+	<insert id="insertMember">
+		insert into member(me_id, me_pw, me_email, me_ms_name)
+		values (#{me.me_id}, #{me.me_pw}, #{me.me_email}, '사용')
+	</insert>	
+	
+	<select id="selectMember" resultType="MemberVO">
+		select * from member where me_id = #{me_id}
+	</select>
+	
+</mapper>
