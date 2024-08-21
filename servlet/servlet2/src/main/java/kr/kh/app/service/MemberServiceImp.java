@@ -84,7 +84,7 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		}
 		
-		// 비밀번호가 같으면 ...
+		// 비밀번호가 같으면 ... ( 비밀번호를 이렇게 따로 둔 이유는 나중에 스프링에서는 암호화를 할 것이기 때문이다. )
 		if(user.getMe_pw().equals(member.getMe_pw())) {
 		
 		return user;
