@@ -69,4 +69,26 @@ public class MemberServiceImp implements MemberService {
 	public boolean checkId(String me_id) {
 		return memberDao.selectMember(me_id) == null;
 	}
+
+	@Override
+	// 여기부터는 못 건드렸다, 이전꺼를 다 못 마쳐서 ...
+	public MemberVO login(MemberVO member) {
+		
+		if(member == null) {
+			return null;
+		}
+		
+		MemberVO user = memberDao.selectMember(member.getMe_id());
+		// 가입되지 않은 아이디라면 ...
+		if(user == null) {
+			return null;
+		}
+		
+		// 비밀번호가 같으면 ...
+		if(user.getMe_pw().equals(member.getMe_pw())) {
+		
+		return user;
+		}
+		return null;
+	}
 }

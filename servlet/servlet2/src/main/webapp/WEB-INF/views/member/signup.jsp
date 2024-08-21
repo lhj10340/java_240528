@@ -49,6 +49,7 @@
 <!-- 전송하려면 name 이 필요하다. name 설정 필수. -->
 <!-- 비밀번호와 같은 중요한 정보가 넘어가니까 post 를 사용해야한다.
 -->
+
   <form action="<c:url value="/signup"/>" method="post" id="form">
     <div class="form-group">
       <label for="id">아이디 :</label>
