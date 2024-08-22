@@ -156,8 +156,15 @@
     </div>
   </form>
    -->
+   
+   
+  <div class="clearfix">
+	  <a class="btn btn-outline-success float-right" href="<c:url value="/post/insert?co_num=${co.co_num }"/>">게시글 등록</a>
+  </div>
   
-  
+   <!-- 나는 a 태그 사이에 버튼 끼워넣고, url 만 입력했었다. -->
+   <!-- ?${co.co_num } 를 입력하지 않았었다. -->
+   
 </div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

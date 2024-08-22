@@ -3,6 +3,7 @@ package kr.kh.app.service;
 import java.util.List;
 
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.model.vo.PostVO;
 import kr.kh.app.pagnation.Criteria;
 import kr.kh.app.pagnation.PageMaker;
@@ -21,5 +22,8 @@ public interface PostService {
 
 	void updatePostView(String po_num);
 
+	boolean insertPost(PostVO post);
+
+	boolean updatePost(PostVO post, MemberVO user);
 
 }

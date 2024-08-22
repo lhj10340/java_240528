@@ -47,6 +47,11 @@
 	  <div class="form-control" style="min-height: 400px; height: auto">${post.po_content }</div>
 	</div>
 	
+	<!-- 작성자 본인만 수정버튼을 볼 수 있도록 c:if 가 필요. -->
+	
+	<c:if test="${user.me_id == post.po_me_id }">
+		<a href="<c:url value="/post/update?po_num=${post.po_num }"/>" class="btn btn-outline-success">수정</a>
+	</c:if>
 	
 </div>
     

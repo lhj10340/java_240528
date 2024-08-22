@@ -22,5 +22,9 @@ public interface PostDAO {
 
 	void updatePostView(@Param("po_num")String po_num);
 
+	boolean insertPost(@Param("post")PostVO post);
+
+	boolean updatePost(@Param("post")PostVO post);
+
 
 }
