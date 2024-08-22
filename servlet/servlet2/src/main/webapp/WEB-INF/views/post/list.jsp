@@ -36,6 +36,11 @@
 		      <button type="submit" class="btn btn-outline-success">검색</button>
 		    </div>
 		    <!-- 아래 input 이 없으면 게시판 이름이 사라지고, url 또한 이상해진다. -->
+		    <!-- 여기 적혀있는 코드를 예로들어 설명하면,
+		    	특정 게시판을 불러오기 위해서는 게시판 번호(co_num) 이 필요하다.
+		    	없으면 어느 게시판에서 검색을 한 것을 찾아야하는지 프로그램이 알지 못한다.
+		    	그러나 사용자 입장에서는 딱히 필요없는 정보다.
+		    	그래서 hidden 으로 숨기는 것. -->
 		    <input type="hidden" name="co_num" value="${pm.cri.co_num}">
 	  	</div>
 	</form>
