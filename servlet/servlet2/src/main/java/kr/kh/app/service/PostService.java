@@ -17,5 +17,9 @@ public interface PostService {
 
 	PageMaker getPostPageMaker(Criteria cri);
 
+	PostVO getPost(String po_num);
+
+	void updatePostView(String po_num);
+
 
 }
