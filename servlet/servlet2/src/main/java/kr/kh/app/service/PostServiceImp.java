@@ -118,4 +118,30 @@ public class PostServiceImp implements PostService {
 		}
 	}
 
+	@Override
+	public int deletePost(String po_num, MemberVO user) {
+		
+		// 회원이 로그인 되어있어야 한다.
+		if(user == null) {
+			return 0;
+		}
+		
+		// 게시글을 확인한다.
+		PostVO post = postDao.selectPost(po_num);
+		
+		// 게시글이 있어야 한다.
+		if(post == null) {
+			return 0;
+		}
+		
+		// 게시글의 작성자와 로그인한 작성자가 같아야한다.
+		if(!post.getPo_me_id().equals(user.getMe_id())) {
+			return 0;
+		}
+		
+		postDao.deletePost(po_num);
+		return post.getPo_co_num();
+		
+	}
+
 }

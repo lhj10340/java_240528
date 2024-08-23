@@ -51,6 +51,7 @@
 	
 	<c:if test="${user.me_id == post.po_me_id }">
 		<a href="<c:url value="/post/update?po_num=${post.po_num }"/>" class="btn btn-outline-success">수정</a>
+		<a href="<c:url value="/post/delete?po_num=${post.po_num }"/>" class="btn btn-outline-danger">삭제</a>
 	</c:if>
 	
 </div>
