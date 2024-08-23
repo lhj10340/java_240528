@@ -31,6 +31,13 @@
 	  <label for="pw">비밀번호 :</label>
 	  <input type="password" class="form-control" id="pw" name="me_pw">
 	</div>
+	
+	<div class="form-check">
+  		<label class="form-check-label">
+    	<input type="checkbox" class="form-check-input" value="true" name="auto">자동 로그인
+ 		 </label>
+	</div>
+	
 	<button type="submit" class="btn btn-outline-success col-12" >로그인</button>
 	
 	<!-- button 의 type 과 class 를 적지 못했다. button 까지는 적었다. -->

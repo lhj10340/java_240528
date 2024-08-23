@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,14 @@ public class Login extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 로그인 페이지로 오기 이전의 URL 을 가져온다.
+		String url = request.getHeader("Referer");
+		
+		// URL 이 있거나 /login 이 아니면 세션에 URL 을 저장
+		if(url != null && !url.contains("/login")) {
+			// 이전 url 이라는 뜻으로 prevUrl 으로 명명
+			request.getSession().setAttribute("prevUrl", url);
+		}
 		// getRequestDispatcher = 가져오는 기능, forward = 전송하는 기능.
 		request.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(request, response);
 		
@@ -52,6 +61,15 @@ public class Login extends HttpServlet {
 		if(user != null) {
 			request.setAttribute("msg", "로그인에 성공하였습니다.");
 			request.setAttribute("url", "/");
+			
+			// 자동 로그인을 체크했다면
+			String auto = request.getParameter("auto");
+				if(auto != null && auto.equals("true")) {
+					// 쿠키를 생성하고 DB에 쿠키와 만료시간을 저장. ( 회원 정보와 세션이 필요하다. )
+					Cookie cookie = memberService.createCookie(user, request);
+					response.addCookie(cookie);
+				}
+			
 		} else {
 			request.setAttribute("meg", "로그인에 실패하였습니다.");
 			request.setAttribute("url", "/login");
