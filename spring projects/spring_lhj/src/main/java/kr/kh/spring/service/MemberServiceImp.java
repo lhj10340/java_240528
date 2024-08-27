@@ -26,11 +26,12 @@ public class MemberServiceImp implements MemberService {
 		
 		// 비밀번호 암호화.
 		String encPw = passwordEncoder.encode(member.getMe_pw());
+		
 		// 암호화된 비번으로 회원 정보를 수정한다.
 		member.setMe_pw(encPw);
 		
 		try {
-			//아이디 중복, 이메일 중복일 때 예외 발생
+			// 아이디 중복, 이메일 중복일 때 예외 발생
 			return memberDao.insertMember(member);
 		} catch (Exception e) {
 			return false;
