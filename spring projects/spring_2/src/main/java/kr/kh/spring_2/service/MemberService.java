@@ -57,5 +57,42 @@ public class MemberService {
 		}
 		return false;
 	}
+
+	/* public boolean login(MemberVO member) {
+		
+		if(member == null) {
+			return null;
+		}
+		
+		MemberVO user = memberDao.selectMember(member.getMe_id());
+		
+		if(user == null) {
+			return false;
+		}
+		
+		if(passwordEncoder.matches(member.getMe_pw(),user.getMe_pw())) {
+			return user;
+		}
+		
+		retunr null; */
+	
+	public MemberVO login(MemberVO member) {
+		
+		if(member == null) {
+			return null;
+		}
+		
+		MemberVO user = memberDao.selectMember(member.getMe_id());
+		if(user == null) {
+			return null;
+		}
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {
+			return user;
+		}
+		
+		return null;
+	}
+
+		
+	}
     
-}

@@ -13,16 +13,22 @@
 	
 	<!-- Links -->
 	<ul class="navbar-nav">
-		<li class="nav-item">
 		
-		<!-- c:url 은 contextPath 를 가지고 오기 때문에, 없으면 에러가 난다.
-			url 이 /spring_2/signup 이 되게 하려면 ... -->
+		<c:if test="${user eq null}">
 		
-			<a class="nav-link" href="<c:url value="/signup"/>">회원가입</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="#">Link 2</a>
-		</li>
+			<li class="nav-item">
+		
+			<!-- c:url 은 contextPath 를 가지고 오기 때문에, 없으면 에러가 난다.
+				url 이 /spring_2/signup 이 되게 하려면 ... -->
+			
+				<a class="nav-link" href="<c:url value="/signup"/>">회원가입</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="<c:url value="/login"/>">로그인</a>
+			</li>
+		
+		</c:if>
+	
 		
 		<!-- Dropdown -->
 		<li class="nav-item dropdown">
