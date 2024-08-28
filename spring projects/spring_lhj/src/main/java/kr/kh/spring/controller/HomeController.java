@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.spring.model.dto.PersonDTO;
 import kr.kh.spring.model.vo.MemberVO;
@@ -82,6 +84,27 @@ public class HomeController {
 		}
 		session.setAttribute("user", user);
 		return "/main/message";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(Model model, HttpSession session) {
+		// 세션에 있는 user 를 제거.
+		session.removeAttribute("user");
+		
+		model.addAttribute("msg", "로그아웃 하였습니다.");
+		model.addAttribute("url", "/");
+		return "/main/message";
+	}
+	
+	// @CrossOrigin(origins = "*")
+	// 모든 사이트들이 해당 url 에 데이터를 요청하도록 허용.
+	// "" 사이에 허용할 사이트를 입력하면된다.
+	
+	@ResponseBody
+	@GetMapping("/check/id")
+	public boolean checkId(@RequestParam("id")String id) {
+		boolean res = memberService.checkId(id);
+		return res;
 	}
 	
 }

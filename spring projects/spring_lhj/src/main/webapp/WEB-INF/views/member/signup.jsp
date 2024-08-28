@@ -11,6 +11,9 @@
 	.error{
 		color : red;
 	}
+	.error.id-ok{
+		color : green;
+	}
 	</style>
 
 </head>
@@ -35,6 +38,60 @@
 		</div>
 		<button type="submit" class="btn btn-outline-success col-12">회원가입</button>
 	</form>
+	
+	<script type="text/javascript">
+		// 아이디 중복 확인
+		$("#id").keyup(function(){
+			// 입력된 아이디 값을 가져온다.
+			var id = $(this).val();
+			// 아이디를 서버에 전달해서 사용이 가능한지 확인한다.
+			var result = checkId(id);
+			displayCheckId(result);
+		})
+		
+		/*
+		@return 1이면 사용 가능, 0이면 사용 불가능, -1이면 전송하지 않는다.
+		*/
+		function checkId(id){
+			// 정규 표현식 확인
+			var regex = /^\w{6,13}$/;
+			if(!regex.test(id)){
+				return -1;
+			}
+			var res = 0;
+			// 맞다면 정규표현식 확인
+			$.ajax({
+				// 비동기 : true(비동기) - 기다리지 않는다/  false(동기) - 기다린다.
+				async : false,
+				url : '<c:url value="/check/id"/>', 
+				type : 'get',
+				// 아래 3개 중요하다.
+				data : {
+					id : id
+				},
+				// 지금 여기서는 (object -> object 라서 contentType, dataType 이 필요없다.)
+				success : function (data){
+					res = data? 1 : 0;
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+			return res;
+		}
+		
+		function displayCheckId(result){
+			$('#check-id').remove();
+			if(result == 1){
+				var str = `	<label id="check-id" class="id-ok-error">사용 가능한 아이디입니다.</label>`
+				$('#id').after(str);
+			}else if(result == 0){
+				var str = `	<label id="check-id" class="error">이미 사용중인 아이디입니다.</label>`
+				$('#id').after(str);
+			}
+		}
+		
+	</script>
 	
 	<script type="text/javascript">
 
@@ -76,6 +133,13 @@
 						}
 					},
 					submitHandler : function() {
+						var id = $("#id").val();
+						var res = checkId(id);
+						if(res == 0){
+							displayCheckId(res);
+							alert('이미 사용중인 아이디입니다.');
+							return false;
+						}
 						return true;
 					}
 				});
