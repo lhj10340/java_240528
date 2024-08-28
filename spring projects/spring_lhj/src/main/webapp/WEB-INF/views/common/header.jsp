@@ -15,7 +15,7 @@
       <a class="nav-link" href="<c:url value="/"/>">Home</a>
     </li>
 			<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/post/community"/>">커뮤니티</a>
+				<a class="nav-link" href="<c:url value="/post/list"/>">커뮤니티</a>
 			</li>
 			
 			<li class="nav-item dropdown">
