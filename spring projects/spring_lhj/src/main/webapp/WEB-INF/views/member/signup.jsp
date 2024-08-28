@@ -83,7 +83,7 @@
 		function displayCheckId(result){
 			$('#check-id').remove();
 			if(result == 1){
-				var str = `	<label id="check-id" class="id-ok-error">사용 가능한 아이디입니다.</label>`
+				var str = `	<label id="check-id" class="id-ok error">사용 가능한 아이디입니다.</label>`
 				$('#id').after(str);
 			}else if(result == 0){
 				var str = `	<label id="check-id" class="error">이미 사용중인 아이디입니다.</label>`
