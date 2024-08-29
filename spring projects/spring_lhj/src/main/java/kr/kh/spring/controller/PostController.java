@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import Pagination.PageMaker;
 import Pagination.PostCriteria;
 import kr.kh.spring.model.vo.CommunityVO;
+import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
 import kr.kh.spring.service.PostService;
@@ -68,9 +69,32 @@ public class PostController {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 		}else {
 			model.addAttribute("url", "/post/insert?co_num="+post.getPo_co_num());
-			model.addAttribute("msg", "게시글을 등록했습니다.");
+			model.addAttribute("msg", "게시글을 등록하지 못했습니다..");
 		}
 		
 		return "/main/message";
 	}
+	
+	@GetMapping("/detail")
+	public String detail(Model model, Integer po_num, PostCriteria cri) {
+		
+		// 게시글 호출 및 화면에 전송한다는 주석은 맞게 적었다.
+		
+		// 조회수 증가
+		postService.updateView(po_num);
+		
+		// 게시글 호출
+		PostVO post = postService.getPost(po_num);
+		
+		// 첨부파일 호출
+		List<FileVO> list = postService.getFileList(po_num);
+		
+		// 화면에 전송
+		model.addAttribute("post", post);
+		model.addAttribute("list", list);
+		model.addAttribute("cri", cri);
+		
+		return "/post/detail";
+	}
+	
 }
