@@ -6,6 +6,9 @@
 <html>
 <head>
 
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
 </head>
 <body>
 
@@ -29,7 +32,13 @@
 			<button class="btn btn-outline-info col-12 mb-3"> 게시글 등록 </button>
 			<input type="hidden" name="po_co_num" value="${co_num }">
 		</form>
-	
+		 <script>
+	      $('#content').summernote({
+	        placeholder: '내용을 작성하세요.',
+	        tabsize: 2,
+	        height: 400
+	      });
+	    </script>
 
 </body>
 </html>
