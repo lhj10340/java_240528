@@ -27,6 +27,12 @@
 		      </div>
     		</li>
     		
+    		<c:if test="${user ne null && user.me_authority eq 'ADMIN' }">
+    		</c:if>
+	    		<li class="nav-item">
+	    			<a class="nav-link" href="<c:url value="/admin/community"/>"> 커뮤니티 관리 </a>
+	    		</li>
+    		
 		<c:if test="${user == null }">
 	
 			<li class="nav-item">
@@ -44,6 +50,33 @@
 		</c:if>
 	</ul>
 </nav>
+
+<script type="text/javascript">
+	
+	// <a class="dropdown-item" href="#">Link1</a>
+	
+$.ajax({
+	async : true,
+	url : '<c:url value="/post/community/list"/>', 
+	type : 'post', 
+	success : function (data){
+		var str = '';
+		for(community of data){
+			str += `
+				<a class="dropdown-item" 
+					href="<c:url value="/post/list?co_num="/>\${community.co_num}">
+					\${community.co_name}
+					</a>
+			`
+		}
+		$('#community-list').html(str);
+	}, 
+	error : function(jqXHR, textStatus, errorThrown){
+
+	}
+});
+
+</script>
 
 </body>
 </html>
