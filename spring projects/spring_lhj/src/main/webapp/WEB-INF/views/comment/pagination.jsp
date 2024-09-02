@@ -10,13 +10,15 @@
 						<span class="float-left" style="line-height 38px;"> ${comment.cm_me_id } </span>
 						<c:if test="${comment.cm_me_id eq user.me_id }">
 							<div class="float-right" >
-								<button class="btn btn-outline-info"> 수정 </button>
-								<button class="btn btn-outline-dark"> 삭제 </button>
+								<button class="btn-comment-update btn btn-outline-info"
+								data-num="${comment.cm_num }"> 수정 </button>
+								<button class="btn-comment-del btn btn-outline-dark"
+								data-num="${comment.cm_num }"> 삭제 </button>
 							</div>
 						</c:if>
 					</div>
 					
-					<div style="padding-left:20px; line-height:38px;"> ${comment.cm_content } </div>
+					<div style="padding-left:20px; line-height:38px;" class="comment-content"> ${comment.cm_content } </div>
 					
 				</li>
 	   	</c:forEach>
@@ -55,3 +57,164 @@
 			    </div>
 			  </div>
 		</div>
+
+<script type="text/javascript">
+
+$('.btn-comment-del').click(function(){
+	var cm_num = $(this).data('num');
+	commentDel3(cm_num);
+});
+
+$('.btn-comment-update').click(function(){
+	// 댓글의 번호를 가져온다.
+	var cm_num = $(this).data('num');
+	// 현재 선택한 댓글의 댓글 내용을 가져온다.
+	var cm_content = $(this).parents('.comment-item').find('.comment-content').text();
+	var str = `
+		<div class="comment-input-box comment-update-box">
+			<div class="input-group mb-3">
+			    <textarea class="form-control" placeholder="댓글 입력" id="input-update-comment">\${cm_content}</textarea>
+			    <input type="hidden" name="cm_num" value="\${cm_num}">
+			    <div class="input-group-append">
+			      <span class="input-group-text btn-update" style="cursor:pointer;">수정</span>
+			    </div>
+			  </div>
+		</div>
+	`;
+	// 클릭을 여러번 하더라도 1번만 추가되도록 하는 코드.
+	$('.comment-update-box').remove();
+	$('.comment-input-box').hide();
+	$('.comment-input-box').after(str);
+});
+
+
+$(document).off('click','.btn-update');
+
+$(document).on('click','.btn-update',function(){
+	// 댓글 번호와 내용을 가져온다.
+	var cm_num = $('.comment-update-box').find('[name=cm_num]').val();
+	var cm_content = $('#input-update-comment').val();
+	var comment = {
+			cm_num : cm_num,
+			cm_content : cm_content
+	}
+
+	if(cm_content.length == 0){
+		alert('댓글을 입력하세요');
+		return;
+	}
+	
+	//ajax로 통신
+	$.ajax({
+		async : true,
+		url : '<c:url value="/comment/update"/>', 
+		type : 'post', 
+		data : JSON.stringify(comment), 
+		contentType : "application/json; charset=utf-8",
+		success : function (data){
+			if(data){
+				alert('댓글을 수정했습니다.');
+			} else{
+				alert('댓글을 수정하지 못했습니다.');
+			}
+			getCommentList2(cri);
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+});
+
+// 내가 어느 방식으로 하는지에 따라서 입력할 것이 달라지니 잘 알아두어야 한다.
+
+function commentDel1(cm_num){
+	
+	// json 을 이용하여 화면에서 서버로 전송 => 서버에서 화면으로 json 을 이용하여 전송.
+	// 화면 : JSON ⇒ 서버 : JSON
+	
+	let comment = {
+			cm_num : cm_num
+	}
+	
+	$.ajax({
+		async : true,
+		url : '<c:url value="/comment/delete1"/>', 
+		type : 'post', 
+		
+		// 객체를 json 형태의 문자열로 ...
+		data : JSON.stringify(comment),
+		
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.res){
+				alert('댓글을 삭제했습니다.');
+			} else{
+				alert('댓글을 삭제하지 못했습니다.');
+			}
+			getCommentList2(cri);
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+}
+
+function commentDel2(cm_num){
+	
+	// 화면 : Object ⇒ 서버 : JSON
+	
+	let comment = {
+			cm_num : cm_num
+	}
+	
+	$.ajax({
+		async : true, //비동기 : true(비동기), false(동기)
+		url : '<c:url value="/comment/delete2"/>', 
+		type : 'post', 
+		data : comment, 
+		dataType : "json", 
+		success : function (data){
+			if(data.res){
+				alert('댓글을 삭제했습니다.');
+			} else{
+				alert('댓글을 삭제하지 못했습니다.');
+			}
+			getCommentList2(cri);
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+	
+}
+
+function commentDel3(cm_num){
+	
+	// 화면 : Object ⇒ 서버 : Object
+	
+	let comment = {
+			cm_num : cm_num
+	}
+	
+	$.ajax({
+		async : true, //비동기 : true(비동기), false(동기)
+		url : '<c:url value="/comment/delete3"/>', 
+		type : 'post', 
+		data : comment, 
+		success : function (data){
+			if(data){
+				alert('댓글을 삭제했습니다.');
+			} else{
+				alert('댓글을 삭제하지 못했습니다.');
+			}
+			getCommentList2(cri);
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+	
+}
+
+</script>
