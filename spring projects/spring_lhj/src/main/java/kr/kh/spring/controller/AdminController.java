@@ -54,7 +54,7 @@ public class AdminController {
 		return "/main/message";
 	}
 	
-	@PostMapping("/community/update")
+	@RequestMapping("/community/update")
 	public String communityUpdate(Model model, CommunityVO community) {
 		
 		boolean res = postService.updateCommunity(community);
