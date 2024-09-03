@@ -76,18 +76,29 @@ public class HomeController {
 	public String loginPost(Model model, MemberVO member, HttpSession session) {
 		MemberVO user = memberService.login(member);
 		if(user != null) {
+			user.setAutoLogin(member.isAutoLogin());
 			model.addAttribute("msg", "로그인을 성공했습니다.");
 			model.addAttribute("url", "/");
 		}else {
 			model.addAttribute("msg", "로그인을 실패했습니다.");
 			model.addAttribute("url", "/login");
 		}
-		session.setAttribute("user", user);
+		model.addAttribute("user", user);
 		return "/main/message";
 	}
 	
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		// 이 코드가 없으면 로그아웃을 해도 쿠키가 남아있어서 계속 로그인 유지.
+		
+		if(user != null) {
+			user.setMe_cookie(null);
+			memberService.updateMemberCookie(user);
+		}
+		
 		// 세션에 있는 user 를 제거.
 		session.removeAttribute("user");
 		

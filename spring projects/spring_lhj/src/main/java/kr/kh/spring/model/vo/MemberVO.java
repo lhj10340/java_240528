@@ -19,6 +19,7 @@ public class MemberVO {
 	int me_report; 
 	String me_ms_name; 
 	Date me_stop;
+	boolean autoLogin;
 	
 	public MemberVO(String me_id, String me_pw, String me_email) {
 		this.me_id = me_id;
