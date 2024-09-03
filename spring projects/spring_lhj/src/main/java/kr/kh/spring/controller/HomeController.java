@@ -118,4 +118,16 @@ public class HomeController {
 		return res;
 	}
 	
+	@GetMapping("/find/pw")
+	public String findPw() {
+		return "/member/findPw";
+	}
+	
+	@ResponseBody
+	@PostMapping("/find/pw")
+	public boolean findPwPost(@RequestParam String id) {
+		boolean res = memberService.findPw(id);
+		return res;
+	}
+	
 }
