@@ -148,4 +148,36 @@ public class MemberServiceImp implements MemberService {
 	        return false;
 	    }
 	}
+
+	@Override
+	public boolean updateMember(MemberVO user, MemberVO member) {
+		
+		if(user == null || member == null) {
+			return false;
+		}
+		
+		member.setMe_id(user.getMe_id());
+		
+		if(member.getMe_pw().length() == 0) {
+			
+			// 비밀번호를 바꾸지 않았을 경우
+			
+			// 로그인한 회원의 비밀번호를 이용한다.
+			member.setMe_pw(user.getMe_pw());
+		} else {
+			// 비밀번호를 바꿨을 경우
+			
+			// 입력한 비밀번호를 암호화.
+			String encPw = passwordEncoder.encode(member.getMe_pw());
+			member.setMe_pw(encPw);
+		}
+		
+		try {
+			return memberDao.updateMember(member);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		
+	}
 }

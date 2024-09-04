@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.spring.model.dto.PersonDTO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.service.MemberService;
+import lombok.extern.log4j.Log4j;
 
 
 @Controller
+@Log4j
 public class HomeController {
 	
 	// private MemberService memberservice = new MemberServiceImp();
@@ -44,7 +46,7 @@ public class HomeController {
 		// 1. 해당 클래스의 기본 생성자가 호출
 		// 2. 화면에서 보낸 name 과 같은 멤버 변수들의 setter 를 호출해서 값을 변경
 		
-		System.out.println(person);
+		log.info(person);
 		
 		model.addAttribute("name", "홍길동");
 		return "/main/home";
@@ -133,6 +135,26 @@ public class HomeController {
 	public boolean findPwPost(@RequestParam String id) {
 		boolean res = memberService.findPw(id);
 		return res;
+	}
+	
+	@GetMapping("mypage")
+	public String mypage() {
+		return "/member/mypage";
+	}
+	
+	@PostMapping("mypage")
+	public String mypagePost(Model model, HttpSession session, MemberVO member) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = memberService.updateMember(user, member);
+		
+		if(res) {
+			model.addAttribute("msg", "회원 정보를 수정했습니다.");
+		} else {
+			model.addAttribute("msg", "회원 정보를 수정하지 못했습니다.");
+		}
+		model.addAttribute("url", "/mypage");
+		
+		return "/main/message";
 	}
 	
 }
