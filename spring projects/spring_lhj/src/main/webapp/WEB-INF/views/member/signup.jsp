@@ -11,9 +11,6 @@
 	.error{
 		color : red;
 	}
-	.error.id-ok{
-		color : green;
-	}
 	</style>
 
 </head>
