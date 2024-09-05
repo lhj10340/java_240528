@@ -1,5 +1,7 @@
 package kr.kh.spring_3.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +50,55 @@ public class HomeController {
 	    		message = new MessageDTO("/guest/signup", "회원가입에 실패했습니다");
 	    	}
 	    	
+	    	model.addAttribute("message", message);
+	    	
+	    	return "/main/message";
+	    }
+	    
+	    @GetMapping("/guest/login")
+	    public String guestLogin() {
+	    	log.info("/guest/login:get");
+	    	return "/member/login";
+	    }
+	    
+	    @PostMapping("/guest/login")
+	    public String guestLoginPost(Model model, HttpSession session, MemberVO member) {
+	    	
+	    	log.info("/guest/login:post");
+	    	
+	    	// 이 부분도 처음에는 회원가입과 동일하게 작성했다가, 이전꺼 보고 수정했다.
+	    	MemberVO user = memberService.login(member);
+	    	
+	    	MessageDTO message;
+	    	
+	    	// 로그인을 한 후, 이를 일정시간동안 유지하기 위하여 세션을 부여해야한다.
+	    	// 세션을 부여하는 방법을 입력하지 못했다.
+	    	// session.setAttribute("user", user);
+	    	
+	    	if(user != null) {
+	    		message = new MessageDTO("/", "로그인에 성공했습니다");
+	    		session.removeAttribute("id");
+	    	} else {
+	    		message = new MessageDTO("/guest/login", "로그인에 실패했습니다");
+	    		session.setAttribute("id", member.getMe_id());
+	    	}
+	    	
+	    	model.addAttribute("message", message);
+	    	
+	    	// interceptor 을 이용할거니까 여기서 세션을 부여하는게 아니다, 정보를 넘겨만 준다.
+	    	model.addAttribute("user", user);
+	    	
+	    	return "/main/message";
+	    }
+	    
+	    @GetMapping("/member/logout")
+	    public String memberLogout(Model model, HttpSession session, MemberVO member) {
+	    	
+	    	log.info("/member/logout:get");
+
+	    	session.removeAttribute("user");
+	    	
+	    	MessageDTO message = new MessageDTO("/", "로그아웃 성공");
 	    	model.addAttribute("message", message);
 	    	
 	    	return "/main/message";

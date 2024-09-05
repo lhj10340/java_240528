@@ -48,5 +48,26 @@ public class MemberService {
 		
 		return true;
 	}
+
+	public MemberVO login(MemberVO member) {
+		
+		if(member == null) {
+			return null;
+		}
+		
+		// 회원정보를 가져온다 ( 아이디를 이용한다 = 아이디 일치여부 확인 )
+		MemberVO user = memberDao.selectMember(member.getMe_id());
+		
+		// 아이디가 일치하지 않았다.
+		if(user == null) {
+			return null;
+		}
+		
+		// 비밀번호 확인
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {
+			return user;
+		}
+		return null;
+	}
 	
 }
