@@ -11,7 +11,7 @@
   
   <!-- typealias 를 추가하지 않았다면, VO 를 resultType 에 적기위해서는 전체 경로를 적어줘야한다. -->
   
-  <select id="selectMember" resultType="kr.kh.spring_3.model.vo.MemberVO">
+  <select id="selectMember" resultType="MemberVO">
   	select * from member where me_id = #{me_id}
   </select>
   
