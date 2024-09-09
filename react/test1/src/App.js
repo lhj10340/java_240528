@@ -1,13 +1,16 @@
 import './App.css';
 import Test1 from './test1/Test1';
-import Test2 from './test2/Test2';
+import Todo from './todo/Todo';
+import TodoList from './todoList/TodoList';
+
 
 
 function App() {
   return (
     <div>
       {/* <Test1/> */}
-      <Test2 />
+      {/* <Todo /> */}
+      <TodoList/>
     </div>
   );
 }
