@@ -1,5 +1,5 @@
 import './css/App.css'; // css 폴더에 App.css가 있고, 연결할 때 사용.
-
+import {useState} from 'react';
 import Button from "./Button";
 
 function App() {
@@ -54,19 +54,39 @@ function App() {
   var [text1, text2] = ['버튼on', '버튼off'];
   var on = true;
 
+  var [on, setOn] = useState(false);
+
+  var [input, setInput] = useState("");
+
   function btnOnClick(){
     alert('On 버튼 클릭')
+    //on = false;
+    setOn(false);
+    //console.log(on);
   }
   
   function btnOffClick(){
     alert('Off 버튼 클릭')
+    //on = true;
+    setOn(true);
+    //console.log(on);
+  }
+
+  function change(e){
+    // input 창에 입력된 값을 가져온다.
+    var value = e.target.value
+    // 가져온 입력값으로 input 스테이트 변수 값을 변경
+    setInput(value); // setInput(e.target.value);
   }
 
   return (
     <div>
-     { on ? <Button text={text1} type={"button"} className={"btn"} click= {btnOnClick} on={on}/> : ''}
-     {!on ? <Button text={text2} type={"submit"} className={"btn"} click= {btnOffClick} on={on}/> : ''}
-      {/* <Button type="submit" className={{a:"a"}}/> */}
+      { on ? <Button text={text1} type={"button"} className={"btn"} click= {btnOnClick} on={on}/> : ''}
+      {!on ? <Button text={text2} type={"submit"} className={"btn"} click= {btnOffClick} on={on}/> : ''}
+        {/* <Button type="submit" className={{a:"a"}}/> */}
+      <br/> 
+      <input type="text" onChange={change}/>
+      <h1>{input}</h1>
     </div>
   );
 }
