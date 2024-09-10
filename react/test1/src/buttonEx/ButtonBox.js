@@ -66,10 +66,10 @@ function ButtonBox(){
 	// amount 에 따라 이전 또는 다음 페이지로
 	function movePage(amount){
 		let currentPage = page + amount;
-		if(currentPage == 0){
+		if(currentPage === 0){
 			currentPage = maxPage;
 		}
-		if(currentPage == maxPage+1){
+		if(currentPage === maxPage+1){
 			currentPage = 1;
 		}
 		setPage(currentPage);
