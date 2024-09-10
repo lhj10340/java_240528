@@ -7,6 +7,7 @@ import TodoList from './todoList/TodoList';
 import ButtonBox3 from './buttonEx/ButtonBox3';
 import Input1 from './input/Input1';
 import Input2 from './input/Input2';
+import List1 from './list/List1';
 
 
 
@@ -20,7 +21,8 @@ function App() {
       {/* <ButtonBox2/> */}
       {/* <ButtonBox3/> */}
       {/* <Input1/> */}
-      <Input2/>
+      {/* <Input2/> */}
+      <List1/>
     </div>
   );
 }
