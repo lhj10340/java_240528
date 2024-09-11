@@ -45,6 +45,10 @@ function List1(){
 		setHobby(tmp);
 	}
 
+	let isDisabled = (value)=>{
+		return hobby.length == 3 && !hobby.includes(value);
+	}
+
 	return(
 
 	<div>
@@ -55,7 +59,7 @@ function List1(){
 
 			return (
 				<label key={index}>
-					<input type="checkbox" value={v} onClick={click}/>{v}
+					<input type="checkbox" value={v} onClick={click} disabled={isDisabled(v)}/>{v}
 				</label>
 			)
 
