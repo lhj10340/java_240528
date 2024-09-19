@@ -1,19 +1,16 @@
+import {useEffect, useState} from "react";
 import Nav from "./Nav";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Main from "./Main";
-import PostList from "./PostList";
-import PostDetail from "./PostDetail";
+import { BrowserRouter } from "react-router-dom"
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Nav/>
-      <Routes>
-				<Route path={"/"} exact element={<Main/>}/>
-				<Route path={"/post/list/:co_num"} element={<PostList/>}/>
-        <Route path={"/post/detail/:po_num"} element={<PostDetail/>}/>
-			</Routes>
-    </BrowserRouter>
-  );
+    const [list, setList] = useState([]);
+
+    return (
+        <BrowserRouter>
+          <Nav/>
+            
+        </BrowserRouter>
+    );
 }
+
 export default App;
