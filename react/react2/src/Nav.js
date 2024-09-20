@@ -4,7 +4,7 @@ import Main from './Main';
 
 function Nav(){
 	return (
-		<BrowserRouter>
+		<nav>
 			<ul>
 				<li>
 					<Link to={"/"}>홈으로</Link>
@@ -13,11 +13,8 @@ function Nav(){
 					<Link to={"/post/list/0"}>커뮤니티</Link>
 				</li>
 			</ul>
-			<Routes>
-				<Route path={"/"} exact element={<Main/>}/>
-				<Route path={"/post/list/:co_num"} element={<PostList/>}/>
-			</Routes>
-		</BrowserRouter>
+			
+		</nav>
 	);
 }
 export default Nav;

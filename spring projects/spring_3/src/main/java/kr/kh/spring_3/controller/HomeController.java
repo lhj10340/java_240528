@@ -112,15 +112,5 @@ public class HomeController {
 	    	return "/main/message";
 	    }
 	    
-	    @ResponseBody
-	    @GetMapping("/test")
-	    public String test() {
-	    	return "Hello";
-	    }
-	    
-	    @ResponseBody
-	    @GetMapping("/test2")
-	    public List<CommunityVO> test2() {
-	    	return postService.getCommunityList();
-	    }
+	   
 }
