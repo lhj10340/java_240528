@@ -8,11 +8,14 @@ function PostList(){
     fetch('/spring/react/post/list/'+co_num)
       .then((res) => res.json())
       .then(res=>{
+				// A 를 B 로 바꿔주는 것이 map
 				var tmp = res.list.map(item=>{
+					// 정수로 된 날짜 정보를 Date 객체로 변환하기 위해서 ..
 					var date = (new Date(item.po_date )).toLocaleDateString();
 					item = {...item, date};
 					return item;
 				})
+				// setList(res.list); 가 아니다 ..
         setList(tmp);
 				setPm(res.pm);
       })
