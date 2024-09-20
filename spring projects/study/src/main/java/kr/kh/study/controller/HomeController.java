@@ -7,6 +7,7 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +24,20 @@ public class HomeController {
 	@Autowired
 	PostDAO postDao;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		System.out.println(postDao.count());
 		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		logger.info(""+postDao.count());
+		String str = "abc";
+		String enc = passwordEncoder.encode(str);
+		System.out.println("암호화 안 된 문자열 : " + str);
+		System.out.println("암호화 된 문자열 : " + enc);
+		System.out.println("암호화된 문자열 == abc : " + passwordEncoder.matches("abc", enc));
+		System.out.println("암호화된 문자열 == abd : " + passwordEncoder.matches("abd", enc));
 		
 		return "/home";
 	}
