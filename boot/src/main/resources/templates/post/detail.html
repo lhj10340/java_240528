@@ -38,10 +38,19 @@
 	  				th:field="*{po_view}">
 			</div>
 			
-			<!-- /list 뒤의 코드를 작성하지 못 했다. -->
-			
 				<a class="btn btn-outline-success mb-3"
 					th:href="@{/post/list/{co_num}(co_num=*{po_co_num})}">게시글 목록</a>
+
+			<!-- update 뒤에 적을 경로적 미처 적지 못했다. -->
+					
+				<a class="btn btn-outline-warning mb-3"
+					th:href="@{/post/update/{po_num}(po_num=*{po_num})}"> 게시글 수정 </a>
+			
+			<!-- 삭제는 강사님이랑 바로 진행했다. -->
+			
+				<a class="btn btn-outline-danger mb-3"
+					th:href="@{/post/delete/{co_num}/{po_num}(po_num=*{po_num}, co_num=*{po_co_num})}"> 게시글 삭제 </a>
+					
 		</div>
 	</main>
 	
